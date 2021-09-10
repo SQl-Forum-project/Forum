@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
+import psycopg2
 app = Flask(__name__)
-app.config['SECRET_KEY'] ='secret'
-app.config['SQLALCHEMY_DATABASE_URI'] =os.environ("DATABASE_URL")
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
 class Forumdg(db.Model):
-    __tablename__ = 'forumdg4'
+    __tablename__ = 'forumdg5'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String, nullable=False)
