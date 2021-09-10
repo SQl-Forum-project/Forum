@@ -4,7 +4,7 @@ import os
 import psycopg2
 app = Flask(__name__)
 app.config['SECRET_KEY'] ='secret'
-app.config['SQLALCHEMY_DATABASE_URI'] =os.environ("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] =os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
