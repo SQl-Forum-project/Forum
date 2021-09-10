@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///forumdg.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/forum'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
