@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Webiz Digital Agency | Bootstrap Template </title>
+    <meta name="description" content="">
+    <link rel="canonical" href="https://www.nameagency.com">
+    <meta property="og:url" content="https://www.nameagency.com">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static',filename='images/ico/apple-touch-icon-144.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static',filename='images/ico/apple-touch-icon-114.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
+    <link rel="apple-touch-icon-precomposed" href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
+</head>
+
+<body>
+    <!-- Navbar Menu  ---->
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+           <i class="fa fa-bars"></i>
+         </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#top">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <!--- Banner Hero section ------->
+    <section class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="promo-title">SIES GST Forum</p>
+                    <p class="join-title">An open Platform for all of your questions!</p>
+                    <div class="container">
+                        <a href="#services">
+
+                            <button type="button" class="btn btn-primary" id="si">Sign in</button>
+                        </a>
+                        <a href="#about">
+
+                            <button type="button" class="btn btn-outline-primary" id="li">Log in</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url_for('static',filename='undraw_email_campaign_qa8y.svg')}}" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <!--- Background wave Hero ---->
+        <img src="{{ url_for('static',filename='ground@-min.png')}}" class="bottom-img" alt="">
+    </section>
+
+    <!--- Services ---->
+    <section id="services">
+        <div class="col">
+            <div class="container">
+                <h3 class="title text-center">Sign In</h3>
+
+                <div class="container">
+                    {% if flag==1 %}
+                    <script>
+                        document.getElementById("si").click()
+                    </script>
+                    {% with messages=get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="alert alert-dark alert-dismissible face show" role="alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endfor %} {% endif %} {% endwith %} {% endif %}
+                    <form action="/signin" method='post'>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" name="em" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="text" class="form-label">User Name</label>
+                            <input type="text" name="usn" class="form-control" id="text" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" name="psd" class="form-control" id="exampleInputPassword1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+    </section>
+    <!--- About Section ------>
+    <section id="about">
+        <div class="container">
+            <h3 class="title text-center">Login</h3>
+            <div class="row">
+                <div class="col-md-6 about">
+                    <p class="about-title">Login Here</p>
+                    <form action="/login" method="post">
+                        {% if flag==2 %}
+                        <script>
+                            document.getElementById("li").click()
+                        </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                        <div class="alert alert-dark alert-dismissible face show" role="alert">
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% endfor %} {% endif %} {% endwith %} {% endif %}
+                        <ul>
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <input type="email" name="eml" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                </div>
+                                <label for="text" class="form-label">User Name</label>
+                                <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" name="psdl" class="form-control" id="exampleInputPassword1" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    </ul>
+
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url_for('static',filename='undraw_mobile_marketing_iqbr.svg')}}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!---  Testimonials Section  --->
+    <section id="testimonials">
+        <div class="container">
+            <h3 class="title text-center">Motive</h3>
+            <div class="row offset-1">
+                <div class="col-md-5 testimonials">
+                    <p class="feedback">"The aim of this Forum is to provide the students and the faculty a collective platform for communicating and asking any queries and questions related to the academic as well as co-curricular matters.We hope to have all the questions and doubts of all our batchmates as well as college faculty be cleared as soon as they ask for help."
+                    </p>
+                    <img src="{{ url_for('static',filename='download.svg')}}" alt="">
+                    <p class="user-details"><b>James</b><br>CEO at DIN</p>
+                </div>
+                <div class="col-md-5 testimonials">
+                    <p class="feedback">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    </p>
+                    <img src="{{ url_for('static',filename='download (1).svg')}}" alt="">
+                    <p class="user-details"><b>William</b><br>Co-founder at ArtSpace</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer ------>
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-box">
+                    <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="col-md-4 footer-box">
+                    <p id="contact"><b>OUR OFFICE</b></p>
+                    <p><i class="fa fa-map-marker"></i>Holloway Road, London</p>
+                    <p><i class="fa fa-phone"></i>+44 074 675 86 965</p>
+                    <p><i class="fa fa-envelope-o"></i>info@examle.com</p>
+                </div>
+                <div class="col-md-4 footer-box">
+                    <p><b>SUBSCRIBE NEWSLETTER</b></p>
+                    <input type="email" class="form-control" placeholder="Your Email">
+                    <button type="button" class="btn btn-primary" name="button">Subscribe</button>
+
+                    <div id="social">
+                        <p>Find Us On Social Media</p>
+                        <div class="social-icons">
+                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='facebook-logo.svg')}}" alt=""></a>
+                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='instagram_.svg')}}" alt=""></a>
+                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='twitter-logo.svg')}}" alt=""></a>
+                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='whatsapp.svg')}}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <p class="copyright">Copyright © 2019. All rights reserved | Designed by <a href="https://www.salvatoremandis.it/index-eng.html">Salvatore Mandis</a></p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p class="copyright">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">Terms & Conditions</a>
+                    </p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </section>
+    <!--- Smooth Scroll js ---------->
+    <script type="text/javascript" src="{{ url_for('static',filename='smooth-scroll.js')}}"></script>
+    <script>
+        var scroll = new SmoothScroll('a[href*="#"]');
+    </script>
+</body>
+
+</html>
