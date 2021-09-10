@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import os
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/forum'
+app.config['SECRET_KEY'] ='secret'
+app.config['SQLALCHEMY_DATABASE_URI'] =os.environ("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
 class Forumdg(db.Model):
+    __tablename__ = 'forumdg'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
