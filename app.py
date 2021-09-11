@@ -8,8 +8,8 @@ app = Flask(__name__)
 mail=Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT']=465
-app.config['MAIL_USERNAME']='salmanad5s3@gmail.com'
-app.config['MAIL_PASSWORD']='Sa300@gggggg'
+app.config['MAIL_USERNAME']=''
+app.config['MAIL_PASSWORD']=''
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
@@ -48,7 +48,7 @@ def signin():
             db.session.add(just1)
             db.session.commit()
             token = s.dumps(em,salt='email-confirm')
-            msg = Message('Hello',sender ='salmanad5s3@gmail.com',recipients = [em])
+            msg = Message('Hello',sender ='',recipients = [em])
             link = url_for('confirm_email',token=token, _external=True)
             msg.body = 'Your Token Is {}'.format(link)
             mail.send(msg)
