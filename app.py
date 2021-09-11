@@ -81,8 +81,7 @@ def login():
         psdl = request.form['psdl']
         eml = request.form['eml']
         try:
-            cheking = Forumdg.query.filter_by(
-                username=usnl, password=psdl, email=eml).first()
+            cheking = Forumdg.query.filter_by(username=usnl, password=psdl, email=eml,FLAGS=True).first()
             if not cheking:
                 flash('Username and Password Are Incorrect')
                 return render_template('index.html',flag=2)
