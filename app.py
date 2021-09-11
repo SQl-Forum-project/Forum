@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
 class Forumdg(db.Model):
-    __tablename__ = 'forumdg5'
+    __tablename__ = 'forumdg6'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String, nullable=False)
@@ -36,6 +36,9 @@ def home():
 temp=0
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
+    global usn
+    global psd
+    global em
     if request.method == 'POST':
         try:
             usn = request.form['usn']
@@ -60,8 +63,10 @@ def signin():
 @app.route('/confirm_email/<token>')
 def confirm_email(token):
     try:
-        email = s.loads(token , salt='email-confirm',max_age=40)
-
+        email = s.loads(token , salt='email-confirm',max_age=60)
+        just1 = Forumdg(username=usn, password=psd, email=em,flags=True)
+        db.session.add(just1)
+        db.session.commit()
     except SignatureExpired:
         return "The Token Is Expired"
     except BadSignature:
