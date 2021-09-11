@@ -47,9 +47,10 @@ def signin():
             just1 = Forumdg(username=usn, password=psd, email=em,flags=False)
             db.session.add(just1)
             db.session.commit()
+            coni = User.query.filter_by(username=us).first()
             token = s.dumps(em,salt='email-confirm')
             msg = Message('Hello',sender ='',recipients = [em])
-            link = url_for('confirm_email',token=token, _external=True)
+            link = url_for('confirm_email',token=token, id=coni.id,_external=True)
             msg.body = 'Your Token Is {}'.format(link)
             mail.send(msg)
             flash('Check Mail For Authentication')
@@ -60,12 +61,13 @@ def signin():
 
     return render_template('index.html')
 
-@app.route('/confirm_email/<token>')
-def confirm_email(token):
+@app.route('/confirm_email/<token>/<int:id>')
+def confirm_email(token,id):
     try:
         email = s.loads(token , salt='email-confirm',max_age=60)
-        just1 = Forumdg(username=usn, password=psd, email=em,flags=True)
-        db.session.add(just1)
+        conf = User.query.filter_by(id=id).first()
+        conf.flags=True
+        db.session.add(conf)
         db.session.commit()
     except SignatureExpired:
         return "The Token Is Expired"
