@@ -2,7 +2,18 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 import psycopg2
+from flask_mail import Mail,Message
+from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadSignature
 app = Flask(__name__)
+mail=Mail(app)
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT']=465
+app.config['MAIL_USERNAME']='salmanad5s3@gmail.com'
+app.config['MAIL_PASSWORD']='Sa300@gggggg'
+app.config['MAIL_USE_TLS']=False
+app.config['MAIL_USE_SSL']=True
+mail=Mail(app)
+s = URLSafeTimedSerializer('Thisisasecret!')
 app.config['SECRET_KEY'] ='secret'
 app.config['SQLALCHEMY_DATABASE_URI'] =os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -14,6 +25,7 @@ class Forumdg(db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True)
+    flags = db.Column(db.Boolean, default=False,nullable=False)
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.username}"
@@ -29,18 +41,32 @@ def signin():
             usn = request.form['usn']
             psd = request.form['psd']
             em = request.form['em']
-            just1 = Forumdg(username=usn, password=psd, email=em)
+            just1 = Forumdg(username=usn, password=psd, email=em,flags=False)
             db.session.add(just1)
             db.session.commit()
-            flash('Sign In Succesfully')
+            token = s.dumps(em,salt='email-confirm')
+            msg = Message('Hello',sender ='salmanad5s3@gmail.com',recipients = [em])
+            link = url_for('confirm_email',token=token, _external=True)
+            msg.body = 'Your Token Is {}'.format(link)
+            mail.send(msg)
+            flash('Check Mail For Authentication')
             return render_template('index.html',flag=1)
         except:
-            flash('Username and Password already exist')
+            flash('Use Diffrent Username and Password')
             return render_template('index.html',flag=1)
 
     return render_template('index.html')
 
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+    try:
+        email = s.loads(token , salt='email-confirm',max_age=40)
 
+    except SignatureExpired:
+        return "The Token Is Expired"
+    except BadSignature:
+        return "The token is invalid"
+    return "This email worked"
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
