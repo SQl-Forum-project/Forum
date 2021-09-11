@@ -92,7 +92,7 @@ def login():
                 return "HH"
         except:
             flash('Username and Password Are Incorrect')
-            return render_template('index.html')
+            return render_template('index.html',flag=2)
     return render_template('index.html')
 if(__name__)=='__main__':
     app.run(debug=True)
