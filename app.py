@@ -91,7 +91,7 @@ def login():
                 # flash('login In Succesfully')
                 global temp
                 temp = 1
-                return "HH"
+                return render_template('bbg.html')
         except:
             flash('Username and Password Are Incorrect')
             return render_template('index.html',flag=2)
