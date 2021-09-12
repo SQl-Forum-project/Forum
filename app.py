@@ -47,7 +47,7 @@ def signin():
             just1 = Forumdg(username=usn, password=psd, email=em,flags=False)
             db.session.add(just1)
             db.session.commit()
-            coni = User.query.filter_by(username=us).first()
+            coni = Forumdg.query.filter_by(username=usn).first()
             token = s.dumps(em,salt='email-confirm')
             msg = Message('Hello',sender ='dhiraj4shelke@gmail.com',recipients = [em])
             link = url_for('confirm_email',token=token, id=coni.id,_external=True)
@@ -65,7 +65,7 @@ def signin():
 def confirm_email(token,id):
     try:
         email = s.loads(token , salt='email-confirm',max_age=60)
-        conf = User.query.filter_by(id=id).first()
+        conf = Forumdg.query.filter_by(id=id).first()
         conf.flags=True
         db.session.add(conf)
         db.session.commit()
