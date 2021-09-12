@@ -49,7 +49,7 @@ def signin():
             db.session.commit()
             coni = User.query.filter_by(username=us).first()
             token = s.dumps(em,salt='email-confirm')
-            msg = Message('Hello',sender ='',recipients = [em])
+            msg = Message('Hello',sender ='dhiraj4shelke@gmail.com',recipients = [em])
             link = url_for('confirm_email',token=token, id=coni.id,_external=True)
             msg.body = 'Your Token Is {}'.format(link)
             mail.send(msg)
