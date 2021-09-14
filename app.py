@@ -96,5 +96,13 @@ def login():
             flash('Username and Password Are Incorrect')
             return render_template('index.html',flag=2)
     return render_template('index.html')
+@app.route('/askque', methods=['GET','POST'])
+def askque():
+    flash('Question Ask')
+    return render_template('forums.html',flag =1)
+@app.route('/editprofile', methods=['GET','POST'])
+def editprofile():
+    flash('Edit Profile')
+    return render_template('forums.html',flag =2)
 if(__name__)=='__main__':
     app.run(debug=True)
