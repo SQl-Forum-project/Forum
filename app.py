@@ -98,11 +98,31 @@ def login():
     return render_template('index.html')
 @app.route('/askque', methods=['GET','POST'])
 def askque():
-    flash('Question Ask')
-    return render_template('forums.html',flag =1)
+    global temp
+    if temp == 0:
+        flash('You Need To Login First')
+        return render_template('index.html',flag=1)
+    else:
+        flash('Question Ask')
+        return render_template('forums.html',flag =1)
 @app.route('/editprofile', methods=['GET','POST'])
 def editprofile():
-    flash('Edit Profile')
-    return render_template('forums.html',flag =2)
+    global temp
+    if temp == 0:
+        flash('You Need To Login First')
+        return render_template('index.html',flag=1)
+    else:        
+        flash('Edit Profile')
+        return render_template('forums.html',flag =2)
+@app.route('/logout')
+def logout():
+    global temp
+    if temp == 0:
+        flash('You Need To Login First')
+        return render_template('index.html',flag=1)
+    else:
+        temp = 1
+        flash('Logout Succesfully')
+        return render_template('index.html',flag=1)
 if(__name__)=='__main__':
     app.run(debug=True)
