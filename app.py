@@ -4,6 +4,8 @@ import os
 import psycopg2
 from flask_mail import Mail,Message
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadSignature
+from flask_login import LoginManager,UserMixin, login_manager,logout_user,current_user,AnonymousUserMixin,login_user
+from flask_login.utils import login_required
 app = Flask(__name__)
 mail=Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
@@ -14,14 +16,21 @@ app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
 s = URLSafeTimedSerializer('Thisisasecret!')
-app.config['SECRET_KEY'] ='secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
+app.config['SECRET_KEY'] = 'hjhghg'
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+class Anonymous(AnonymousUserMixin):
+  def __init__(self):
+    self.username = 'Guest'
 app.secret_key = 'ye ye'
-class Forumdg(db.Model):
+class Forumdg(db.Model,UserMixin):
     __tablename__ = 'forumdg6'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
@@ -31,11 +40,13 @@ class Forumdg(db.Model):
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.username}"
+@login_manager.user_loader
+def load_user(user_id):
+    return Forumdg.query.get(int(user_id))
 @app.route('/')
 def home():
     return render_template('index.html')
 
-temp=0
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
     global usn
@@ -90,42 +101,29 @@ def login():
                 flash('Username and Password Are Incorrect')
                 return render_template('index.html',flag=2)
             else:
+                login_user(cheking)
                 # flash('login In Succesfully')
-                global temp
-                temp = 1
                 return render_template('forums.html')
         except:
             flash('Username and Password Are Incorrect')
             return render_template('index.html',flag=2)
     return render_template('index.html')
 @app.route('/askque', methods=['GET','POST'])
+@login_required
 def askque():
-    global temp
-    if temp == 0:
-        flash('You Need To Login First')
-        return render_template('index.html',flag=1)
-    else:
-        flash('Question Ask')
-        return render_template('forums.html',flag =1)
+    flash('Question Ask')
+    return render_template('forums.html',flag =1)
 @app.route('/editprofile', methods=['GET','POST'])
-def editprofile():
-    global temp
-    if temp == 0:
-        flash('You Need To Login First')
-        return render_template('index.html',flag=1)
-    else:        
-        flash('Edit Profile')
-        return render_template('forums.html',flag =2)
+@login_required
+def editprofile():        
+    flash('Edit Profile')
+    return render_template('forums.html',flag =2)
 @app.route('/logout')
+@login_required
 def logout():
-    global temp
-    if temp == 0:
-        flash('You Need To Login First')
-        return render_template('index.html',flag=1)
-    else:
-        temp = 1
-        flash('Logout Succesfully')
-        return render_template('index.html',flag=1)
+    logout_user()
+    flash('Logout Succesfully')
+    return render_template('index.html',flag=1)
 @app.route('/test')
 def test():
     return render_template('test.html')
