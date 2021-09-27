@@ -15,7 +15,10 @@ app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
 s = URLSafeTimedSerializer('Thisisasecret!')
 app.config['SECRET_KEY'] ='secret'
-app.config['SQLALCHEMY_DATABASE_URI'] =os.environ["DATABASE_URL"]
+# app.config['SQLALCHEMY_DATABASE_URI'] =
+# os.environ["DATABASE_URL"]
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'ye ye'
@@ -124,5 +127,8 @@ def logout():
         temp = 1
         flash('Logout Succesfully')
         return render_template('index.html',flag=1)
+@app.route('/test')
+def test():
+    return render_template('test.html')
 if(__name__)=='__main__':
     app.run(debug=True)
