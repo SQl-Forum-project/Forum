@@ -10,8 +10,8 @@ app = Flask(__name__)
 mail=Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT']=465
-app.config['MAIL_USERNAME']='dhiraj4shelke@gmail.com'
-app.config['MAIL_PASSWORD']='Dhiraj12345'
+app.config['MAIL_USERNAME']=os.environ['EMAIL']
+app.config['MAIL_PASSWORD']=os.environ['PASSWORD']
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
@@ -62,7 +62,7 @@ def signin():
             db.session.commit()
             coni = Forumdg.query.filter_by(username=usn).first()
             token = s.dumps(em,salt='email-confirm')
-            msg = Message('Hello',sender ='dhiraj4shelke@gmail.com',recipients = [em])
+            msg = Message('Hello',sender =os.environ['EMAIL'],recipients = [em])
             link = url_for('confirm_email',token=token, id=coni.id,_external=True)
             msg.body = 'Your Token Is {}'.format(link)
             mail.send(msg)
