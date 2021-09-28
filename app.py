@@ -77,7 +77,7 @@ def signin():
 @app.route('/confirm_email/<token>/<int:id>')
 def confirm_email(token,id):
     try:
-        email = s.loads(token , salt='email-confirm',max_age=300)
+        email = s.loads(token , salt='email-confirm',max_age=60)
         conf = Forumdg.query.filter_by(id=id).first()
         conf.flags=True
         db.session.add(conf)
