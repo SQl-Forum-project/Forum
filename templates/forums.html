@@ -146,11 +146,18 @@
                         <ul>
                             <div class="mb-3">
                                 <!-- <div class="row text-center width-50"> -->
-                                <img src="{{ url_for('static',filename='download (2).svg')}}" alt=""
+                                <img src="{{ url_for('static',filename='download (2).svg')}}" alt="" id="imageBox12"
                                     class="mx-auto d-block" width="120">
                                 <!-- </div> -->
+                                <script>
+                                    function myFunction(){
+                                        var temp =Math.random();
+                                        var str="https://avatars.dicebear.com/api/male/"+temp+".svg";
+                                        document.getElementById('imageBox12').src = str;
+                                    }
+                                </script>
                                 <br>
-                                <button type=reset class="mx-auto d-block btn btn-secondary" style={border-radius:50%;}><i style="font-size:24px" class="fa">&#xf021;</i></button>
+                                <button type=reset class="mx-auto d-block btn btn-secondary" id="refresh_button" onclick="myFunction()" style=border-radius:50%;><i style="font-size:24px" class="fa">&#xf021;</i></button>
                             </div>
                           
                             <label for="text" class="form-label">User Name</label>
