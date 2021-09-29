@@ -16,10 +16,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static',filename='images/ico/apple-touch-icon-144.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static',filename='images/ico/apple-touch-icon-114.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
-    <link rel="apple-touch-icon-precomposed" href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-144.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-114.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
+    <link rel="apple-touch-icon-precomposed"
+        href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
@@ -29,9 +37,10 @@
             <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-           <i class="fa fa-bars"></i>
-         </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
 
@@ -47,7 +56,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#about">Edit Profile</a>
                     </li>
-<!--                     <li class="nav-item">
+                    <!--                     <li class="nav-item">
                         <a class="nav-link" href="#testimonials">Testimonials</a>
                     </li> -->
                     <li class="nav-item">
@@ -76,7 +85,8 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ url_for('static',filename='undraw_email_campaign_qa8y.svg')}}" alt="" class="img-fluid">
+                    <img src="{{ url_for('static',filename='undraw_email_campaign_qa8y.svg')}}" alt=""
+                        class="img-fluid">
                 </div>
             </div>
         </div>
@@ -103,12 +113,14 @@
                     <form action="/askque" method='post'>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Topic</label>
-                            <input type="text" name="tpc" class="form-control" id="text" aria-describedby="emailHelp" required>
-                         </div>
-                         <div class="form-floating">
-                            <textarea maxlength="500" class="form-control" placeholder="Add Discription" id="floatingTextarea"></textarea>
-                          </div>
-                          <br>
+                            <input type="text" name="tpc" class="form-control" id="text" aria-describedby="emailHelp"
+                                required>
+                        </div>
+                        <div class="form-floating">
+                            <textarea maxlength="500" class="form-control" placeholder="Add Discription"
+                                id="floatingTextarea"></textarea>
+                        </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -125,44 +137,57 @@
                         {% if flag==2 %}
                         <script>
                             document.getElementById("li").click()
-                        </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                        </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in
+                        messages %}
                         <div class="alert alert-dark alert-dismissible face show" role="alert">
                             <strong>{{ message }}</strong>
                         </div>
                         {% endfor %} {% endif %} {% endwith %} {% endif %}
                         <ul>
                             <div class="mb-3">
-                                <div class="mb-3 image">
-                                    <img src="{{ url_for('static',filename='download (1).svg')}}" alt="">
-                                </div>   
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" name="eml" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                                </div>
-                                <label for="text" class="form-label">User Name</label>
-                                <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp" required>
-                             <div class="form-group mb-3">
+                                <!-- <div class="row text-center width-50"> -->
+                                <img src="{{ url_for('static',filename='download (2).svg')}}" alt=""
+                                    class="mx-auto d-block" width="120">
+                                <!-- </div> -->
+                            </div>
+                          
+                            <label for="text" class="form-label">User Name</label>
+                            <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp"
+                                required>
+                            <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1">Bio</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                             </div>
-                             <div class="btn-group dropright">
-                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Designation</button>
-                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Student</a>
-                                    <a class="dropdown-item" href="#">Teacher</a>
-                                    <a class="dropdown-item" href="#">Staff</a>
-                                    <a class="dropdown-item" href="#">Alumini</a>
-                                </div>
                             </div>
-                            <div><br></div>
+                                <label for="test" class="form-label pe-5">Select Age</label>
+                                <input type="date" id="date">
+                                <br>
+                                <label for="text" class="form-label">Location</label>
+                            <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp"
+                                required>
+                                <br>
+                            <div class="dropdown">
+                                <label for="test" class="form-label pe-4">Select Designations</label>
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Designations
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li><a class="dropdown-item" href="#">Student</a></li>
+                                  <li><a class="dropdown-item" href="#">Staff</a></li>
+                                  <li><a class="dropdown-item" href="#">Alumini</a></li>
+                                </ul>
+                              </div>
+
+                            <div>     
+                                
+                            <br></div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     </ul>
 
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ url_for('static',filename='undraw_mobile_marketing_iqbr.svg')}}" class="img-fluid" alt="">
+                    <img src="{{ url_for('static',filename='undraw_mobile_marketing_iqbr.svg')}}" class="img-fluid"
+                        alt="">
                 </div>
             </div>
         </div>
@@ -171,15 +196,22 @@
     <section id="testimonials">
         <div class="container">
             <h3 class="title text-center">Insights</h3>
+            <br>
             <div class="row offset-1">
                 <div class="col-md-5 testimonials">
-                    <p class="feedback">"The aim of this Forum is to provide the students and the faculty a collective platform for communicating and asking any queries and questions related to the academic as well as co-curricular matters.We hope to have all the questions and doubts of all our batchmates as well as college faculty be cleared as soon as they ask for help."
+                    <p class="feedback">"The aim of this Forum is to provide the students and the faculty a collective
+                        platform for communicating and asking any queries and questions related to the academic as well
+                        as co-curricular matters.We hope to have all the questions and doubts of all our batchmates as
+                        well as college faculty be cleared as soon as they ask for help."
                     </p>
                     <img src="{{ url_for('static',filename='download (2).svg')}}" alt="">
                     <p class="user-details"><b>Salman Adhikari</b><br>CEO at DIN</p>
                 </div>
                 <div class="col-md-5 testimonials">
-                    <p class="feedback">"The Forum is designed to develop cognitive and non-cognitive skills which advance student readiness for study at Rutgers as well as internships and beyond graduation. All work in the Forum is designed to provide formative learning across three broad domains of competence i.e Cognitive,Intrapersonal & Interpersonal Domain."
+                    <p class="feedback">"The Forum is designed to develop cognitive and non-cognitive skills which
+                        advance student readiness for study at Rutgers as well as internships and beyond graduation. All
+                        work in the Forum is designed to provide formative learning across three broad domains of
+                        competence i.e Cognitive,Intrapersonal & Interpersonal Domain."
                     </p>
                     <img src="{{ url_for('static',filename='download (1).svg')}}" alt="">
                     <p class="user-details"><b>Raj Tandel</b><br>Co-founder at ArtSpace</p>
@@ -212,10 +244,15 @@
                         <p>Find Us On Social Media</p>
                         <div class="social-icons">
 
-                            <a href="https://www.facebook.com/SIESGST/" target="_blank" class="svg-icons"><img src="{{ url_for('static',filename='facebook-logo.svg')}}" alt=""></a>
-                            <a href="https://www.instagram.com/siesgstevents/?hl=en" target="_blank" class="svg-icons"><img src="{{ url_for('static',filename='instagram_.svg')}}" alt=""></a>
-                            <a href="https://twitter.com/siesgstian?lang=en" target="_blank" class="svg-icons"><img src="{{ url_for('static',filename='twitter-logo.svg')}}" alt=""></a>
-                            <a href="https://www.youtube.com/siesgstweb" target="_blank" class="svg-icons"><img src="{{ url_for('static',filename='ytlogo10.jpeg')}}" alt=""></a>
+                            <a href="https://www.facebook.com/SIESGST/" target="_blank" class="svg-icons"><img
+                                    src="{{ url_for('static',filename='facebook-logo.svg')}}" alt=""></a>
+                            <a href="https://www.instagram.com/siesgstevents/?hl=en" target="_blank"
+                                class="svg-icons"><img src="{{ url_for('static',filename='instagram_.svg')}}"
+                                    alt=""></a>
+                            <a href="https://twitter.com/siesgstian?lang=en" target="_blank" class="svg-icons"><img
+                                    src="{{ url_for('static',filename='twitter-logo.svg')}}" alt=""></a>
+                            <a href="https://www.youtube.com/siesgstweb" target="_blank" class="svg-icons"><img
+                                    src="{{ url_for('static',filename='ytlogo10.jpeg')}}" alt=""></a>
                         </div>
                     </div>
                 </div>
