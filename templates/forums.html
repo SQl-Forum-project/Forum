@@ -135,17 +135,50 @@
                                 <div class="mb-3 image">
                                     <img src="{{ url_for('static',filename='download (1).svg')}}" alt="">
                                 </div>   
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" name="eml" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                                </div>
                                 <label for="text" class="form-label">User Name</label>
                                 <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp" required>
                              <div class="form-group mb-3">
                                 <label for="exampleFormControlTextarea1">Bio</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                              </div>
+                                <div class="mb-3">
+                                <div class="input-append date" id="datetimepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                    <input class="span2" size="16" type="text" value="12-02-2012">
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                 </div>  
+                                </div>
+                                  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Designation</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+          <label class="form-check-label" for="gridRadios1">
+            Student
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">
+            Teacher
+          </label>
+        </div>
+          <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">
+            Staff
+          </label>
+        </div>
+                  <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">
+           Alumini
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
                              <div class="btn-group dropright">
                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Designation</button>
                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
