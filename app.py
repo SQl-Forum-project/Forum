@@ -10,18 +10,18 @@ app = Flask(__name__)
 mail=Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT']=465
-# app.config['MAIL_USERNAME']=os.environ['EMAIL125']
-# app.config['MAIL_PASSWORD']=os.environ['PASSWORD125']
-app.config['MAIL_USERNAME']=''
-app.config['MAIL_PASSWORD']=''
+app.config['MAIL_USERNAME']=os.environ['EMAIL125']
+app.config['MAIL_PASSWORD']=os.environ['PASSWORD125']
+# app.config['MAIL_USERNAME']=''
+# app.config['MAIL_PASSWORD']=''
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
 s = URLSafeTimedSerializer('Thisisasecret!')
 app.config['SECRET_KEY'] = 'hjhghg'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -65,15 +65,15 @@ def signin():
             usn = request.form['usn']
             psd = request.form['psd']
             em = request.form['em']
-            just1 = Forumdg(username=usn, password=psd, email=em,flags=True)
+            just1 = Forumdg(username=usn, password=psd, email=em,flags=False)
             db.session.add(just1)
             db.session.commit()
-            # coni = Forumdg.query.filter_by(username=usn).first()
-            # token = s.dumps(em,salt='email-confirm')
-            # msg = Message('Hello',sender ='',recipients = [em])
-            # link = url_for('confirm_email',token=token, id=coni.id,_external=True)
-            # msg.body = 'Your Token Is {}'.format(link)
-            # mail.send(msg)
+            coni = Forumdg.query.filter_by(username=usn).first()
+            token = s.dumps(em,salt='email-confirm')
+            msg = Message('Hello',sender =os.environ['EMAIL125'],recipients = [em])
+            link = url_for('confirm_email',token=token, id=coni.id,_external=True)
+            msg.body = 'Your Token Is {}'.format(link)
+            mail.send(msg)
             flash('Check Mail For Authentication')
             return render_template('index.html',flag=1)
         except:
