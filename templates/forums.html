@@ -24,10 +24,7 @@
         href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
     <link rel="apple-touch-icon-precomposed"
         href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -132,70 +129,104 @@
             <h3 class="title text-center">Edit Profile</h3>
             <div class="row">
                 <div class="col-md-6 about">
-                    <p class="about-title">Edit Profile Here</p>
                     <form action="/editprofile" method="post">
-                        {% if flag==2 %}
-                        <script>
-                            document.getElementById("li").click()
-                        </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in
-                        messages %}
-                        <div class="alert alert-dark alert-dismissible face show" role="alert">
-                            <strong>{{ message }}</strong>
-                        </div>
-                        {% endfor %} {% endif %} {% endwith %} {% endif %}
-                        <ul>
-                            <div class="mb-3">
-                                <!-- <div class="row text-center width-50"> -->
-                                <img src="{{ url_for('static',filename='download (2).svg')}}" alt="" id="imageBox12"
-                                    class="mx-auto d-block" width="120">
-                                <!-- </div> -->
-                                <script>
-                                    function myFunction(){
-                                        var temp =Math.random();
-                                        var str="https://avatars.dicebear.com/api/avataaars/"+temp+".svg";
-                                        document.getElementById('imageBox12').src = str;
-                                    }
-                                </script>
-                                <br>
-                                <button type=reset class="mx-auto d-block btn btn-secondary" id="refresh_button" onclick="myFunction()" style=border-radius:50%;><i style="font-size:24px" class="fa">&#xf021;</i></button>
-                            </div>
-                          
-                            <label for="text" class="form-label">User Name</label>
-                            <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp"
-                                required>
-                            <div class="form-group mb-3">
-                                <label for="exampleFormControlTextarea1">Bio</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-                            </div>
-                                <label for="text" class="form-label">Location</label>
-                            <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp"
-                                required>
-                                <br>
-                              <label for="test" class="form-label pe-5">DOB</label>
-                                <input class="form-control" type="date" id="date" required>
-                                <br>
+                    <p class="about-title">Edit Profile Here</p>
+                    {% if flag==2 %}
+                    <script>
+                        document.getElementById("li").click()
+                    </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in
+                    messages %}
+                    <div class="alert alert-dark alert-dismissible face show" role="alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endfor %} {% endif %} {% endwith %} {% endif %}
+                    <ul>
+                        <div class="mb-3">
+                            <!-- <div class="row text-center width-50"> -->
+                            <img src="https://avatars.dicebear.com/api/avataaars/1.svg" alt="" id="imageBox12"
+                                class="mx-auto d-block" width="120">
                             <br>
-                            <div class="dropdown" required>
-                                <label for="test" class="form-label pe-4">Designations</label>
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Designations
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" required>
-                                  <li><a class="dropdown-item" href="#">Student</a></li>
-                                  <li><a class="dropdown-item" href="#">Teacher</a></li>
-                                  <li><a class="dropdown-item" href="#">Staff</a></li>
-                                  <li><a class="dropdown-item" href="#">Alumini</a></li>
-                                </ul>
-                              </div>
+                            <label for="text" class="form-label">Your Image ID is</label>
 
-                            <div>     
-                                
-                            <br></div>
+                            <input type="form-control" id="country" value="{{ user.Image_Str }}" name="imgsrc" readonly><br><br>
+                            <!-- </div> -->
+                            <script>
+                                    document.getElementById('imageBox12').src = "https://avatars.dicebear.com/api/avataaars/" + document.getElementById('country').value + ".svg";
+                                function myFunction() {
+                                    var temp = Math.random();
+                                    str = "https://avatars.dicebear.com/api/avataaars/" + temp + ".svg";
+                                    document.getElementById('imageBox12').src = str;
+                                    document.getElementById('country').setAttribute('value', temp);
+                                }
+
+                            </script>
+                            <br>
+                            <button type=reset class="mx-auto d-block btn btn-secondary" id="refresh_button"
+                                onclick="myFunction()" style=border-radius:50%;><i style="font-size:24px"
+                                    class="fa">&#xf021;</i></button>
+
+                        </div>
+
+                        <label for="text" class="form-label">User Name</label>
+                        <input type="text" name="username" id="test" aria-describedby="emailHelp" value="{{ user.usernamefull }}" class="form-control"
+                            required>
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Bio</label>
+                            <textarea class="form-control"  id="exampleFormControlTextarea1" name="bio" rows="3"
+                                required>{{ user.Bio }}</textarea>
+                        </div>
+                        <label for="text" class="form-label">Location</label>
+                        <input type="text" name="Location" class="form-control" id="Location"
+                            aria-describedby="emailHelp" value="{{ user.Location }}" required>
+                        <br>
+                        <label for="test" class="form-label pe-5">DOB</label>
+                        <input class="form-control" type="date" value="{{ user.DOB}}" name="dob" id="date" required>
+                        <br>
+                        <br>
+                        <label for="test" class="form-label pe-5">Designation</label>
+                        <select name="desig" id="designation" required>
+                            <option value="Student">Student</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Teacher">Teacher</option>
+                            <option value="Alumini">Alumini</option>
+                        </select>
+                        <script>
+                            document.getElementById("designation").value ="{{ user.Designation }}";
+                        </script>
+                        <div>
+
+                            <br>
+                        </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                        </form>
+                        <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+                            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+                            crossorigin="anonymous"></script>
+                        <script type="text/javascript">
+                            $("#contactForm1").submit(function (e) {
+
+                                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                                var form = $(this);
+                                var url = form.attr('action');
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '{{ url_for("editprofile") }}',
+                                    data: { "image_data": str, "text_data": document.getElementById("test").value, "Location_data": document.getElementById("Location").value, "Bio_data": document.getElementById("exampleFormControlTextarea1").value, "DOB_data": document.getElementById("date").value, "Designation_data": document.getElementById("designation").value, },
+ // serializes the form's elements.
+                                    success: function (data) {
+                                        // document.getElementById("load_map").click();// show response from the php script.
+                                        alert("Added Sucesfully");
+                                    }
+                                });
+
+
+                            });
+                        </script> -->
                     </ul>
                 </div>
-                 <div class="col-md-6">
+                <div class="col-md-6">
                     <img src="{{ url_for('static',filename='undraw_mobile_marketing_iqbr.svg')}}" class="img-fluid"
                         alt="">
                 </div>
