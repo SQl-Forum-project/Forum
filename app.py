@@ -168,6 +168,13 @@ def logout():
 @app.route('/test')
 def test():
     return render_template('test.html')
+@app.route('/userprofile/<string:username>')
+@login_required
+def userprofile(username):
+    user = Forumdg.query.filter_by(username=username).first()
+    if not user:
+        return "Not Fund"
+    return render_template('user_profile.html',user=user)
+
 if(__name__)=='__main__':
     app.run(debug=True)
-#data: { "image_data": str, "text_data": document.getElementById("test").value, "Location_data": document.getElementById("Location").value, "Bio_data": document.getElementById("exampleFormControlTextarea1").value, "DOB_data": document.getElementById("date").value, "Designation_data": document.getElementById("designation").value, },
