@@ -169,7 +169,6 @@ def logout():
 def test():
     return render_template('test.html')
 @app.route('/userprofile/<string:username>')
-@login_required
 def userprofile(username):
     user = Forumdg.query.filter_by(username=username).first()
     if not user:
