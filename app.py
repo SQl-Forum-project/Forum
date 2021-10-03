@@ -165,11 +165,16 @@ def logout():
     logout_user()
     flash('Logout Succesfully')
     return render_template('index.html',flag=1)
-@app.route('/test')
+@app.route('/test',methods=['GET','POST'])
 def test():
     return render_template('test.html')
-@app.route('/userprofile/<string:username>')
+@app.route('/userprofile/<string:username>',methods=['GET','POST'])
 def userprofile(username):
+    if request.method == 'POST':
+        user = Forumdg.query.filter_by(username=username).first()
+        if not user:
+            return "Not Fund"
+        return render_template('user_profile.html',user=user)
     user = Forumdg.query.filter_by(username=username).first()
     if not user:
         return "Not Fund"
