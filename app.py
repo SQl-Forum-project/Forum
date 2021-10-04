@@ -155,7 +155,7 @@ def editprofile():
         db.session.commit()
         print(image_data,text_data,Location_data,Bio_data,DOB_data,Designation_data)
         print("HEY THERE ITS WORKING YAYA")
-        flash('Edit Profile')
+        flash('Profile Edit Succesfully')
         return render_template('forums.html',flag =2,user = user_profile)
     flash('Edit Profile')
     return render_template('forums.html',flag =2)
