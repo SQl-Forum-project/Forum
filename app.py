@@ -32,8 +32,8 @@ class Anonymous(AnonymousUserMixin):
   def __init__(self):
     self.username = 'Guest'
 app.secret_key = 'ye ye'
-class User_Basic_info1(db.Model,UserMixin):
-    __tablename__ = 'userbasicinfo2'
+class User_Basic_infos(db.Model,UserMixin):
+    __tablename__ = 'userbasicinfos'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String, nullable=False)
@@ -45,19 +45,19 @@ class User_Basic_info1(db.Model,UserMixin):
     Image_Str = db.Column(db.String,default="1")
     Designation = db.Column(db.String,default="NOT_SET")
     phone = db.Column(db.String,default="NOT_SET")
-    Instagram = db.Column(db.String,default="#")
-    Facebook = db.Column(db.String,default="#")
-    Twitter = db.Column(db.String,default="#")
-    Github = db.Column(db.String,default="#")
-    Linkdin = db.Column(db.String,default="#")
-    website = db.Column(db.String,default="#")
+    Instagram = db.Column(db.String,default="NOT_SET")
+    Facebook = db.Column(db.String,default="NOT_SET")
+    Twitter = db.Column(db.String,default="NOT_SET")
+    Github = db.Column(db.String,default="NOT_SET")
+    Linkdin = db.Column(db.String,default="NOT_SET")
+    website = db.Column(db.String,default="NOT_SET")
     DOB = db.Column(db.Date,default='08-01-2003')
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.username}"
 @login_manager.user_loader
 def load_user(user_id):
-    return User_Basic_info1.query.get(int(user_id))
+    return User_Basic_infos.query.get(int(user_id))
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -72,10 +72,10 @@ def signin():
             usn = request.form['usn']
             psd = request.form['psd']
             em = request.form['em']
-            just1 = User_Basic_info1(username=usn, password=psd, email=em,flags=False)
+            just1 = User_Basic_infos(username=usn, password=psd, email=em,flags=False)
             db.session.add(just1)
             db.session.commit()
-            coni = User_Basic_info1.query.filter_by(username=usn).first()
+            coni = User_Basic_infos.query.filter_by(username=usn).first()
             token = s.dumps(em,salt='email-confirm')
             msg = Message('Hello',sender =os.environ['EMAIL125'],recipients = [em])
             link = url_for('confirm_email',token=token, id=coni.id,_external=True)
@@ -93,7 +93,7 @@ def signin():
 def confirm_email(token,id):
     try:
         email = s.loads(token , salt='email-confirm',max_age=60)
-        conf = User_Basic_info1.query.filter_by(id=id).first()
+        conf = User_Basic_infos.query.filter_by(id=id).first()
         conf.flags=True
         db.session.add(conf)
         db.session.commit()
@@ -111,7 +111,7 @@ def login():
         psdl = request.form['psdl']
         eml = request.form['eml']
         try:
-            cheking = User_Basic_info1.query.filter_by(username=usnl, password=psdl, email=eml,flags =True).first()
+            cheking = User_Basic_infos.query.filter_by(username=usnl, password=psdl, email=eml,flags =True).first()
             if not cheking:
                 flash('Username and Password Are Incorrect')
                 return render_template('index.html',flag=2)
@@ -123,7 +123,7 @@ def login():
                 # resp.set_cookie('userID', cheking.id)
                 # print("--->>>",request.cookies.get('userID'))
                 # flash('login In Succesfully')
-                user = User_Basic_info1.query.filter_by(id=session.get('visits')).first()
+                user = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
                 return render_template('forums.html',user=user)
         except Exception as e:
             print(e)
@@ -139,7 +139,7 @@ def askque():
 @login_required
 def editprofile(): 
     if request.method == 'POST':
-        user_profile = User_Basic_info1.query.filter_by(id=session.get('visits')).first()
+        user_profile = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
         # image_data = request.form.get("image_data")
         # text_data = request.form.get("text_data")
         # Location_data = request.form.get("Location_data")
@@ -192,11 +192,11 @@ def test():
 @app.route('/userprofile/<string:username>',methods=['GET','POST'])
 def userprofile(username):
     if request.method == 'POST':
-        user = User_Basic_info1.query.filter_by(username=username).first()
+        user = User_Basic_infos.query.filter_by(username=username).first()
         if not user:
             return "Not Fund"
         return render_template('user_profile.html',user=user)
-    user = User_Basic_info1.query.filter_by(username=username).first()
+    user = User_Basic_infos.query.filter_by(username=username).first()
     if not user:
         return "Not Fund"
     return render_template('user_profile.html',user=user)
