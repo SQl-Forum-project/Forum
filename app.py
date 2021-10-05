@@ -33,7 +33,7 @@ class Anonymous(AnonymousUserMixin):
     self.username = 'Guest'
 app.secret_key = 'ye ye'
 class Forumdg(db.Model,UserMixin):
-    __tablename__ = 'forumdg7'
+    __tablename__ = 'forumdg8'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String, nullable=False)
