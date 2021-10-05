@@ -44,6 +44,13 @@ class Forumdg(db.Model,UserMixin):
     Bio = db.Column(db.String,default="NOT_SET")
     Image_Str = db.Column(db.String,default="1")
     Designation = db.Column(db.String,default="NOT_SET")
+    phone = db.Column(db.String,default="NOT_SET")
+    Instagram = db.Column(db.String,default="NOT_SET")
+    Facebook = db.Column(db.String,default="NOT_SET")
+    Twitter = db.Column(db.String,default="NOT_SET")
+    Github = db.Column(db.String,default="NOT_SET")
+    Linkdin = db.Column(db.String,default="NOT_SET")
+    website = db.Column(db.String,default="NOT_SET")
     DOB = db.Column(db.Date,default='08-01-2003')
 
     def __repr__(self) -> str:
@@ -145,12 +152,26 @@ def editprofile():
         Bio_data = request.form["bio"]
         DOB_data = request.form["dob"]
         Designation_data = request.form["desig"]
+        phone = request.form["Phone_Number"]
+        Instagram = request.form["Instagram"]
+        Facebook = request.form["Facebook"]
+        Twitter = request.form["Twitter"]
+        Github = request.form["Github"]
+        Linkdin = request.form["Linkdin"]
+        website = request.form["website"]
         user_profile.Image_Str = image_data
         user_profile.usernamefull = text_data
         user_profile.Location=Location_data
         user_profile.Bio=Bio_data
         user_profile.DOB=DOB_data
         user_profile.Designation=Designation_data
+        user_profile.phone=phone
+        user_profile.Instagram=Instagram
+        user_profile.Facebook=Facebook
+        user_profile.Twitter=Twitter
+        user_profile.Github=Github
+        user_profile.Linkdin=Linkdin
+        user_profile.website=website
         db.session.add(user_profile)
         db.session.commit()
         print(image_data,text_data,Location_data,Bio_data,DOB_data,Designation_data)

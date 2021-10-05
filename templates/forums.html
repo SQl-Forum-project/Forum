@@ -196,7 +196,7 @@
                             <br>
                             <label for="text" class="form-label">Phone Number</label>
                             <input type="text" name="Phone_Number" class="form-control" id="Location"
-                                aria-describedby="emailHelp"  required>
+                                aria-describedby="emailHelp" value="{{ user.phone }}" required>
                             <br>
                             <label for="test" class="form-label pe-5">DOB</label>
                             <input class="form-control" type="date" value="{{ user.DOB}}" name="dob" id="date" required>
@@ -219,8 +219,8 @@
                                                 src="	https://cdn3.iconfinder.com/data/icons/social-media-2253/17/Vector-1-25.png"
                                                 alt="" srcset=""></div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup"
-                                        placeholder="Instagram Username">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="Instagram"
+                                        value="{{ user.Instagram }}" required>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -231,8 +231,8 @@
                                                 src="https://cdn0.iconfinder.com/data/icons/eon-social-media-contact-info-2/32/facebook_fb_face_book-25.png"
                                                 alt="" srcset=""> </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup"
-                                        placeholder="Facebook Username">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="Facebook"
+                                        value="{{ user.Facebook }}" required>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -243,8 +243,8 @@
                                                 src="https://cdn0.iconfinder.com/data/icons/eon-social-media-contact-info-2/32/twitter_bird_social_media_trending-25.png"
                                                 alt="" srcset=""> </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup"
-                                        placeholder="Twitter Username">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="Twitter"
+                                        value="{{ user.Twitter }}" required>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -255,8 +255,8 @@
                                                 src="https://cdn0.iconfinder.com/data/icons/eon-social-media-contact-info-2/32/github_coding_dev_developer-25.png"
                                                 alt="" srcset=""> </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup"
-                                        placeholder="Github Username">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="Github"
+                                        value="{{ user.Github }}" required>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -267,8 +267,20 @@
                                                 src="https://cdn0.iconfinder.com/data/icons/eon-social-media-contact-info-2/32/in_linkedin_portfolio_social_media-25.png"
                                                 alt="" srcset=""> </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup"
-                                        placeholder="Linkdin Username">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="Linkdin"
+                                        value="{{ user.Linkdin }}" required>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <label class="sr-only" for="inlineFormInputGroup">Website Link</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><img
+                                                src="https://cdn1.iconfinder.com/data/icons/social-media-outline-6/128/SocialMedia_Website-Outline-25.png"
+                                                alt="" srcset=""> </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="website"
+                                        value="{{ user.website }}" required>
                                 </div>
                             </div>
                             <script>
