@@ -82,7 +82,7 @@
                     <!-- Inner main body -->
 
                     <!-- Forum List -->
-                    {% for i in range(3)  %}
+                    {% for i in range(total_len)  %}
                         
                     
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
@@ -100,7 +100,7 @@
                                         <p class="text-secondary">
                                             {{ ques[i].discription}}
                                         </p>
-                                        <p class="text-muted"> <form action="/forum/{{ ques[0].id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
+                                        <p class="text-muted"> <form action="/forum/{{ ques[i].id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
                                                 class="text-secondary font-weight-bold">13 minutes ago</span></p></form>
                                     </div>
                                 </div>

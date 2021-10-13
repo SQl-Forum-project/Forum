@@ -219,8 +219,8 @@ def forum():
                                 .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
                                 .all())
     forum_gg=Forum_Questions.query.all()
-    print(user)
-    return render_template('test.html',ques=forum_gg,user=user)
+    lenghts=len(forum_gg)
+    return render_template('test.html',ques=forum_gg,user=user,total_len=lenghts)
 @app.route('/forum/<int:id>',methods=['GET','POST'])
 def forum_id(id):
     forum_gg = Forum_Questions.query.all()
