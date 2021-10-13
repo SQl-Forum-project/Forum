@@ -178,8 +178,9 @@ def editprofile():
         print("HEY THERE ITS WORKING YAYA")
         flash('Profile Edit Succesfully')
         return render_template('forums.html',flag =2,user = user_profile)
+    user_profile = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
     flash('Edit Profile')
-    return render_template('forums.html',flag =2)
+    return render_template('forums.html',flag =20,user = user_profile)
 @app.route('/logout')
 @login_required
 def logout():
