@@ -70,7 +70,6 @@ class Forum_Questions_Reply(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey("userbasicinfos.id"))
     flag = db.Column(db.Integer)
-    title = db.Column(db.String)
     discription = db.Column(db.String)
     time = db.Column(db.Date,default=datetime.now)
     def __repr__(self) -> str:
@@ -225,10 +224,14 @@ def forum():
 def forum_id(id):
     forum_gg = Forum_Questions.query.filter_by(id=id).first()
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
-                                .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
+                                .join(Forum_Questions, User_Basic_infos.id == forum_gg.user_id)
                                 .first())
+    replay = Forum_Questions_Reply.query.filter_by(flag=id).all()
+    users =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
+                                .join(Forum_Questions_Reply, User_Basic_infos.id == Forum_Questions_Reply.user_id)
+                                .all())
     print(user)
-    return render_template('bbg.html',ques=forum_gg,user=user)
+    return render_template('bbg.html',ques=forum_gg,user=user,replay=replay,users=users,lenghtsq=len(replay))
 
 @app.route('/userprofile/<string:username>',methods=['GET','POST'])
 def userprofile(username):
@@ -241,6 +244,16 @@ def userprofile(username):
     if not user:
         return "Not Fund"
     return render_template('user_profile.html',user=user)
+
+@app.route('/replay/<int:id>',methods=['GET','POST'])
+def replay(id):
+    if request.method == 'POST':
+        comment = request.form["ncom"]
+        replay_msg = Forum_Questions_Reply(user_id=session.get('visits'),flag=id,discription=comment)
+        db.session.add(replay_msg)
+        db.session.commit()
+        print(comment)
+        return forum_id(id)
 
 if(__name__)=='__main__':
     app.run(debug=True)

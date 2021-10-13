@@ -59,29 +59,10 @@
             </div>
         </nav>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
-        integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
-    <div class="container">
-        <div class="main-body p-0">
+        integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />   
+    <div class="container">   
+        <div class="main-body p-0"> 
             <div class="inner-wrapper">
-                <!-- Inner sidebar -->
-                
-                    <!-- Inner sidebar header -->
-                    
-                    <!-- /Inner sidebar header -->
-
-                    <!-- Inner sidebar body -->
-                   
-                    <!-- /Inner sidebar body -->
-                
-                <!-- /Inner sidebar -->
-
-                <!-- Inner main -->
-                
-                    <!-- /Inner main header -->
-
-                    <!-- Inner main body -->
-
-                    <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                         <div class="card mb-2">
                             <div class="card-body p-2 p-sm-3">
@@ -99,12 +80,68 @@
                                         </p>
                                         <p class="text-muted"> <form action="/forum/{{ ques.id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
                                                 class="text-secondary font-weight-bold">13 minutes ago</span></p></form>
+                                                
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
+            </div>
+        </div>
+        
+    </div>
+
+
+    <style type="text/css">
+        body {
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+    </style>
+        <div class="container"> 
+<div class="main-body p-2 ml-2">
+    <button type="button" class="btn btn-primary pb-1" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+    <div id="demo" class="collapse">
+        <br>
+        <form action="/replay/{{ ques.id }}" method="post">
+        <input type="text" class="form-control pd-2" name="ncom" value="Comment!" id="floatingInputGrid" required>
+        <br>
+        <button class="btn btn-outline-dark btn-sm mx-1" href="#" type="submit">Comment</button>
+    </form>
+    </div>
+  </div>
+</div>
+  <hr class="my-4">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+  integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+<div class="container">
+  <div class="main-body p-0">
+      <div class="inner-wrapper">
+  {% for i in range(lenghtsq)  %}
+                        
+                    
+                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                        <div class="card mb-2">
+                            <div class="card-body p-2 p-sm-3">
+                                <div class="media forum-item">
+                                    <a href="/userprofile/{{users[i].username}}" class="card-link">
+                                        <img src="	https://avatars.dicebear.com/api/avataaars/{{ users[i].Image_Str}}.svg" class="rounded-circle"
+                                            width="50" alt="User" />
+                                        <small class="d-block text-center text-muted">{{ users[i].username }}</small>
+                                    </a>
+                                        
+                                    <div class="media-body ml-3">
+                                        <p>
+                                            {{ replay[i].discription}}
+                                        </p>
+                                         13 minutes ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 <!-- /Forum List -->
 
                 <!-- Forum Detail -->
@@ -126,152 +163,7 @@
             text-align: left;
             background-color: #e2e8f0;
         }
-
-        .inner-wrapper {
-            position: relative;
-            height: calc(100vh - 3.5rem);
-            transition: transform 0.3s;
-        }
-
-        @media (min-width: 992px) {
-            .sticky-navbar .inner-wrapper {
-                height: calc(100vh - 3.5rem - 48px);
-            }
-        }
-
-        .inner-main,
-        .inner-sidebar {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .inner-sidebar {
-            left: 0;
-            width: 235px;
-            border-right: 1px solid #cbd5e0;
-            background-color: #fff;
-            z-index: 1;
-        }
-
-        .inner-main {
-            right: 0;
-            left: 235px;
-        }
-
-        .inner-main-footer,
-        .inner-main-header,
-        .inner-sidebar-footer,
-        .inner-sidebar-header {
-            height: 3.5rem;
-            border-bottom: 1px solid #cbd5e0;
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-            flex-shrink: 0;
-        }
-
-        .inner-main-body,
-        .inner-sidebar-body {
-            padding: 1rem;
-            overflow-y: auto;
-            position: relative;
-            flex: 1 1 auto;
-        }
-
-        .inner-main-body .sticky-top,
-        .inner-sidebar-body .sticky-top {
-            z-index: 999;
-        }
-
-        .inner-main-footer,
-        .inner-main-header {
-            background-color: #fff;
-        }
-
-        .inner-main-footer,
-        .inner-sidebar-footer {
-            border-top: 1px solid #cbd5e0;
-            border-bottom: 0;
-            height: auto;
-            min-height: 3.5rem;
-        }
-
-        @media (max-width: 767.98px) {
-            .inner-sidebar {
-                left: -235px;
-            }
-
-            .inner-main {
-                left: 0;
-            }
-
-            .inner-expand .main-body {
-                overflow: hidden;
-            }
-
-            .inner-expand .inner-wrapper {
-                transform: translate3d(235px, 0, 0);
-            }
-        }
-
-        .nav .show>.nav-link.nav-link-faded,
-        .nav-link.nav-link-faded.active,
-        .nav-link.nav-link-faded:active,
-        .nav-pills .nav-link.nav-link-faded.active,
-        .navbar-nav .show>.nav-link.nav-link-faded {
-            color: #3367b5;
-            background-color: #c9d8f0;
-        }
-
-        .nav-pills .nav-link.active,
-        .nav-pills .show>.nav-link {
-            color: #fff;
-            background-color: #467bcb;
-        }
-
-        .nav-link.has-icon {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-link.active {
-            color: #467bcb;
-        }
-
-        .nav-pills .nav-link {
-            border-radius: .25rem;
-        }
-
-        .nav-link {
-            color: #4a5568;
-        }
-
-        .card {
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-        }
-
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 0 solid rgba(0, 0, 0, .125);
-            border-radius: .25rem;
-        }
-
-        .card-body {
-            flex: 1 1 auto;
-            min-height: 1px;
-            padding: 1rem;
-        }
-    </style>
-
+        </style>
     <script type="text/javascript">
 
     </script>
