@@ -86,18 +86,18 @@
                         <div class="card mb-2">
                             <div class="card-body p-2 p-sm-3">
                                 <div class="media forum-item">
-                                    <a href="/userprofile/{{user.username}}" class="card-link">
-                                        <img src="	https://avatars.dicebear.com/api/avataaars/{{ user.Image_Str}}.svg" class="rounded-circle"
+                                    <a href="/userprofile/{{user[1]}}" class="card-link">
+                                        <img src="	https://avatars.dicebear.com/api/avataaars/{{ user[0]}}.svg" class="rounded-circle"
                                             width="50" alt="User" />
-                                        <small class="d-block text-center text-muted">{{ user.username }}</small>
+                                        <small class="d-block text-center text-muted">{{ user[1] }}</small>
                                     </a>
                                         
                                     <div class="media-body ml-3">
-                                        <h6>{{ques[0].title}}</h6>
+                                        <h6>{{ques.title}}</h6>
                                         <p class="text-secondary">
-                                            {{ ques[0].discription}}
+                                            {{ ques.discription}}
                                         </p>
-                                        <p class="text-muted"> <form action="/forum/{{ ques[0].id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
+                                        <p class="text-muted"> <form action="/forum/{{ ques.id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
                                                 class="text-secondary font-weight-bold">13 minutes ago</span></p></form>
                                     </div>
                                 </div>

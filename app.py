@@ -223,8 +223,11 @@ def forum():
     return render_template('test.html',ques=forum_gg,user=user,total_len=lenghts)
 @app.route('/forum/<int:id>',methods=['GET','POST'])
 def forum_id(id):
-    forum_gg = Forum_Questions.query.all()
-    user = User_Basic_infos.query.filter_by(id=forum_gg[0].user_id).first()
+    forum_gg = Forum_Questions.query.filter_by(id=id).first()
+    user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
+                                .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
+                                .first())
+    print(user)
     return render_template('bbg.html',ques=forum_gg,user=user)
 
 @app.route('/userprofile/<string:username>',methods=['GET','POST'])
