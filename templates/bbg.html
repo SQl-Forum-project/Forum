@@ -5,7 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Webiz Digital Agency | Bootstrap Template </title>
+    <title>SIESGST Forum</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='cube.png')}}" type="image/x-icon">
     <meta name="description" content="">
     <link rel="canonical" href="https://www.nameagency.com">
     <meta property="og:url" content="https://www.nameagency.com">
@@ -15,220 +16,269 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static',filename='images/ico/apple-touch-icon-144.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static',filename='images/ico/apple-touch-icon-114.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
-    <link rel="apple-touch-icon-precomposed" href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-144.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-114.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
+    <link rel="apple-touch-icon-precomposed"
+        href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
 </head>
 
 <body>
     <!-- Navbar Menu  ---->
-    <section id="nav-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
+
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#top">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ url_for('editprofile') }}">Back</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Ask A Question</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">Edit Profile</a>
-                    </li>
-                    <li class="nav-item">
+                   
+                    <!--                     <li class="nav-item">
                         <a class="nav-link" href="#testimonials">Testimonials</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('forums') }}">Forum</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
                     </li>
                 </ul>
+                <form class="d-flex" id="another_temp_search" method="POST" target="_blank">
+                    <input class="form-control me-2" id="temp_search_another" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit" onclick="temp1();">&#128269;</button>
+                </form>
             </div>
         </nav>
-    </section>
-    <!--- Banner Hero section ------->
-    <section class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="promo-title">Your Digital Agency</p>
-                    <p class="join-title">Join Us! We Will Let Grown Your Business Faster</p>
-                    <div class="container">
-                        <a href="#services">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+        integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+    <div class="container">
+        <div class="main-body p-0">
+            <div class="inner-wrapper">
+                <!-- Inner sidebar -->
+                
+                    <!-- Inner sidebar header -->
+                    
+                    <!-- /Inner sidebar header -->
 
-                            <button type="button" class="btn btn-primary" id="si">Ask A Question</button>
-                        </a>
-                        <a href="#about">
+                    <!-- Inner sidebar body -->
+                   
+                    <!-- /Inner sidebar body -->
+                
+                <!-- /Inner sidebar -->
 
-                            <button type="button" class="btn btn-outline-primary" id="li">Edit Profile</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ url_for('static',filename='undraw_email_campaign_qa8y.svg')}}" alt="" class="img-fluid">
-                </div>
-            </div>
-        </div>
-        <!--- Background wave Hero ---->
-        <img src="{{ url_for('static',filename='ground@-min.png')}}" class="bottom-img" alt="">
-    </section>
+                <!-- Inner main -->
+                
+                    <!-- /Inner main header -->
 
-    <!--- Services ---->
-    <section id="services">
-        <div class="col">
-            <div class="container">
-                <h3 class="title text-center">Ask A Question</h3>
+                    <!-- Inner main body -->
 
-                <div class="container">
-                    {% if flag==1 %}
-                    <script>
-                        document.getElementById("si").click()
-                    </script>
-                    {% with messages=get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                    <div class="alert alert-dark alert-dismissible face show" role="alert">
-                        <strong>{{ message }}</strong>
-                    </div>
-                    {% endfor %} {% endif %} {% endwith %} {% endif %}
-                    <form action="/signin" method='post'>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" name="em" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="text" class="form-label">User Name</label>
-                            <input type="text" name="usn" class="form-control" id="text" aria-describedby="emailHelp" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" name="psd" class="form-control" id="exampleInputPassword1" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-    </section>
-    <!--- About Section ------>
-    <section id="about">
-        <div class="container">
-            <h3 class="title text-center">Edit Profile</h3>
-            <div class="row">
-                <div class="col-md-6 about">
-                    <p class="about-title">Edit Profile Here</p>
-                    <form action="/login" method="post">
-                        {% if flag==2 %}
-                        <script>
-                            document.getElementById("li").click()
-                        </script>{% with messages=get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                        <div class="alert alert-dark alert-dismissible face show" role="alert">
-                            <strong>{{ message }}</strong>
-                        </div>
-                        {% endfor %} {% endif %} {% endwith %} {% endif %}
-                        <ul>
-                            <div class="mb-3">
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" name="eml" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                    <!-- Forum List -->
+                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                        <div class="card mb-2">
+                            <div class="card-body p-2 p-sm-3">
+                                <div class="media forum-item">
+                                    <a href="/userprofile/{{user.username}}" class="card-link">
+                                        <img src="	https://avatars.dicebear.com/api/avataaars/{{ user.Image_Str}}.svg" class="rounded-circle"
+                                            width="50" alt="User" />
+                                        <small class="d-block text-center text-muted">{{ user.username }}</small>
+                                    </a>
+                                        
+                                    <div class="media-body ml-3">
+                                        <h6>{{ques[0].title}}</h6>
+                                        <p class="text-secondary">
+                                            {{ ques[0].discription}}
+                                        </p>
+                                        <p class="text-muted"> <form action="/forum/{{ ques[0].id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
+                                                class="text-secondary font-weight-bold">13 minutes ago</span></p></form>
                                     </div>
                                 </div>
-                                <label for="text" class="form-label">User Name</label>
-                                <input type="text" name="usnl" class="form-control" id="text" aria-describedby="emailHelp" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" name="psdl" class="form-control" id="exampleInputPassword1" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                    </ul>
-
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ url_for('static',filename='undraw_mobile_marketing_iqbr.svg')}}" class="img-fluid" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!---  Testimonials Section  --->
-    <section id="testimonials">
-        <div class="container">
-            <h3 class="title text-center">TESTIMONIALS</h3>
-            <div class="row offset-1">
-                <div class="col-md-5 testimonials">
-                    <p class="feedback">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                    </p>
-                    <img src="{{ url_for('static',filename='download.svg')}}" alt="">
-                    <p class="user-details"><b>James</b><br>CEO at DIN</p>
-                </div>
-                <div class="col-md-5 testimonials">
-                    <p class="feedback">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                    </p>
-                    <img src="{{ url_for('static',filename='download (1).svg')}}" alt="">
-                    <p class="user-details"><b>William</b><br>Co-founder at ArtSpace</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer ------>
-    <section id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-box">
-                    <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="col-md-4 footer-box">
-                    <p id="contact"><b>OUR OFFICE</b></p>
-                    <p><i class="fa fa-map-marker"></i>Holloway Road, London</p>
-                    <p><i class="fa fa-phone"></i>+44 074 675 86 965</p>
-                    <p><i class="fa fa-envelope-o"></i>info@examle.com</p>
-                </div>
-                <div class="col-md-4 footer-box">
-                    <p><b>SUBSCRIBE NEWSLETTER</b></p>
-                    <input type="email" class="form-control" placeholder="Your Email">
-                    <button type="button" class="btn btn-primary" name="button">Subscribe</button>
-
-                    <div id="social">
-                        <p>Find Us On Social Media</p>
-                        <div class="social-icons">
-                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='facebook-logo.svg')}}" alt=""></a>
-                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='instagram_.svg')}}" alt=""></a>
-                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='twitter-logo.svg')}}" alt=""></a>
-                            <a href="#" class="svg-icons"><img src="{{ url_for('static',filename='whatsapp.svg')}}" alt=""></a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 ">
-                    <p class="copyright">Copyright © 2019. All rights reserved | Designed by <a href="https://www.salvatoremandis.it/index-eng.html">Salvatore Mandis</a></p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <p class="copyright">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">Terms & Conditions</a>
-                    </p>
-                </div>
+                
+                <!-- /Forum List -->
+
+                <!-- Forum Detail -->
+                <!-- /Forum Detail -->
+
+                <!-- /Inner main body -->
             </div>
-            <br>
+            <!-- /Inner main -->
         </div>
-    </section>
-    <!--- Smooth Scroll js ---------->
-    <script type="text/javascript" src="{{ url_for('static',filename='smooth-scroll.js')}}"></script>
-    <script>
-        var scroll = new SmoothScroll('a[href*="#"]');
+
+        <!-- New Thread Modal -->
+        
+    </div>
+
+
+    <style type="text/css">
+        body {
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+
+        .inner-wrapper {
+            position: relative;
+            height: calc(100vh - 3.5rem);
+            transition: transform 0.3s;
+        }
+
+        @media (min-width: 992px) {
+            .sticky-navbar .inner-wrapper {
+                height: calc(100vh - 3.5rem - 48px);
+            }
+        }
+
+        .inner-main,
+        .inner-sidebar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inner-sidebar {
+            left: 0;
+            width: 235px;
+            border-right: 1px solid #cbd5e0;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .inner-main {
+            right: 0;
+            left: 235px;
+        }
+
+        .inner-main-footer,
+        .inner-main-header,
+        .inner-sidebar-footer,
+        .inner-sidebar-header {
+            height: 3.5rem;
+            border-bottom: 1px solid #cbd5e0;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            flex-shrink: 0;
+        }
+
+        .inner-main-body,
+        .inner-sidebar-body {
+            padding: 1rem;
+            overflow-y: auto;
+            position: relative;
+            flex: 1 1 auto;
+        }
+
+        .inner-main-body .sticky-top,
+        .inner-sidebar-body .sticky-top {
+            z-index: 999;
+        }
+
+        .inner-main-footer,
+        .inner-main-header {
+            background-color: #fff;
+        }
+
+        .inner-main-footer,
+        .inner-sidebar-footer {
+            border-top: 1px solid #cbd5e0;
+            border-bottom: 0;
+            height: auto;
+            min-height: 3.5rem;
+        }
+
+        @media (max-width: 767.98px) {
+            .inner-sidebar {
+                left: -235px;
+            }
+
+            .inner-main {
+                left: 0;
+            }
+
+            .inner-expand .main-body {
+                overflow: hidden;
+            }
+
+            .inner-expand .inner-wrapper {
+                transform: translate3d(235px, 0, 0);
+            }
+        }
+
+        .nav .show>.nav-link.nav-link-faded,
+        .nav-link.nav-link-faded.active,
+        .nav-link.nav-link-faded:active,
+        .nav-pills .nav-link.nav-link-faded.active,
+        .navbar-nav .show>.nav-link.nav-link-faded {
+            color: #3367b5;
+            background-color: #c9d8f0;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            color: #fff;
+            background-color: #467bcb;
+        }
+
+        .nav-link.has-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link.active {
+            color: #467bcb;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: .25rem;
+        }
+
+        .nav-link {
+            color: #4a5568;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+    </style>
+
+    <script type="text/javascript">
+
     </script>
+        <script type="text/javascript" src="{{ url_for('static',filename='smooth-scroll.js')}}"></script>
+        <script>
+            var scroll = new SmoothScroll('a[href*="#"]');
+        </script>
 </body>
 
 </html>

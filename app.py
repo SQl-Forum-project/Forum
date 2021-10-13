@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for,make
 from flask_sqlalchemy import SQLAlchemy
 import os
 import psycopg2
+from datetime import datetime
 from flask_mail import Mail,Message
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadSignature
 from flask_login import LoginManager,UserMixin, login_manager,logout_user,current_user,AnonymousUserMixin,login_user
@@ -55,6 +56,25 @@ class User_Basic_infos(db.Model,UserMixin):
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.username}"
+class Forum_Questions(db.Model):
+    __tablename__ = "forum_questions"
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey("userbasicinfos.id"))
+    title = db.Column(db.String)
+    discription = db.Column(db.String)
+    time = db.Column(db.Date,default=datetime.now)
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.user_id}"
+class Forum_Questions_Reply(db.Model):
+    __tablename__ = "forum_questions_replays"
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey("userbasicinfos.id"))
+    flag = db.Column(db.Integer)
+    title = db.Column(db.String)
+    discription = db.Column(db.String)
+    time = db.Column(db.Date,default=datetime.now)
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.user_id}"
 @login_manager.user_loader
 def load_user(user_id):
     return User_Basic_infos.query.get(int(user_id))
@@ -133,8 +153,15 @@ def login():
 @app.route('/askque', methods=['GET','POST'])
 @login_required
 def askque():
+    if request.method == 'POST':
+        topic = request.form['tpc']
+        Discription = request.form['tpcdisc']
+        askingquestion = Forum_Questions(user_id=session.get('visits'),title=topic,discription=Discription)
+        db.session.add(askingquestion)
+        db.session.commit()
+        user_profile = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
     flash('Question Ask')
-    return render_template('forums.html',flag =1)
+    return render_template('forums.html',flag =1,user = user_profile)
 @app.route('/editprofile', methods=['GET','POST'])
 @login_required
 def editprofile(): 
@@ -179,7 +206,6 @@ def editprofile():
         flash('Profile Edit Succesfully')
         return render_template('forums.html',flag =2,user = user_profile)
     user_profile = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
-    flash('Edit Profile')
     return render_template('forums.html',flag =20,user = user_profile)
 @app.route('/logout')
 @login_required
@@ -187,9 +213,20 @@ def logout():
     logout_user()
     flash('Logout Succesfully')
     return render_template('index.html',flag=1)
-@app.route('/test',methods=['GET','POST'])
-def test():
-    return render_template('test.html')
+@app.route('/forum')
+def forum():
+    user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
+                                .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
+                                .all())
+    forum_gg=Forum_Questions.query.all()
+    print(user)
+    return render_template('test.html',ques=forum_gg,user=user)
+@app.route('/forum/<int:id>',methods=['GET','POST'])
+def forum_id(id):
+    forum_gg = Forum_Questions.query.all()
+    user = User_Basic_infos.query.filter_by(id=forum_gg[0].user_id).first()
+    return render_template('bbg.html',ques=forum_gg,user=user)
+
 @app.route('/userprofile/<string:username>',methods=['GET','POST'])
 def userprofile(username):
     if request.method == 'POST':
