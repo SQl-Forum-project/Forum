@@ -225,7 +225,7 @@ def forum():
 def forum_id(id):
     forum_gg = Forum_Questions.query.filter_by(id=id).first()
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
-                                .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
+                                .join(Forum_Questions, User_Basic_infos.id == forum_gg.user_id)
                                 .first())
     print(user)
     return render_template('bbg.html',ques=forum_gg,user=user)
