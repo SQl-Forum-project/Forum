@@ -1,3 +1,4 @@
+from operator import and_
 from flask import Flask, render_template, request, flash, redirect, url_for,make_response,session
 from flask_sqlalchemy import SQLAlchemy
 import os
