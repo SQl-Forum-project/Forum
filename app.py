@@ -214,6 +214,7 @@ def logout():
     flash('Logout Succesfully')
     return render_template('index.html',flag=1)
 @app.route('/forum')
+@login_required
 def forum():
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
                                 .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
@@ -222,6 +223,7 @@ def forum():
     lenghts=len(forum_gg)
     return render_template('test.html',ques=forum_gg,user=user,total_len=lenghts)
 @app.route('/forum/<int:id>',methods=['GET','POST'])
+@login_required
 def forum_id(id):
     forum_gg = Forum_Questions.query.filter_by(id=id).first()
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
@@ -245,6 +247,7 @@ def userprofile(username):
     return render_template('user_profile.html',user=user)
 
 @app.route('/replay/<int:id>',methods=['GET','POST'])
+@login_required
 def replay(id):
     if request.method == 'POST':
         comment = request.form["ncom"]
