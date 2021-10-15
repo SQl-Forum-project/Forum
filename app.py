@@ -252,7 +252,7 @@ def replay(id):
         db.session.add(replay_msg)
         db.session.commit()
         print(comment)
-        return forum_id(id)
+        return redirect(f'/forum/{id}')
 
 if(__name__)=='__main__':
     app.run(debug=True)
