@@ -19,8 +19,8 @@ app.config['MAIL_PASSWORD']=os.environ['PASSWORD125']
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
-s = URLSafeTimedSerializer('Thisisasecret!')
-app.config['SECRET_KEY'] = 'hjhghg'
+s = URLSafeTimedSerializer(os.environ['SECRET_KEY_AUTH'])
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
