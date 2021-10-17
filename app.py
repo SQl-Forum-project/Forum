@@ -2,6 +2,7 @@ from operator import and_
 from flask import Flask, render_template, request, flash, redirect, url_for,make_response,session
 from flask_sqlalchemy import SQLAlchemy
 import os
+from werkzeug.security import generate_password_hash,check_password_hash
 import psycopg2
 from datetime import datetime
 from flask_mail import Mail,Message
@@ -20,7 +21,9 @@ app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
 mail=Mail(app)
 s = URLSafeTimedSerializer(os.environ['SECRET_KEY_AUTH'])
+# s = URLSafeTimedSerializer('khdfgsdhfgdsf')
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+# app.config['SECRET_KEY'] = 'hjhghg'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
@@ -54,9 +57,10 @@ class User_Basic_infos(db.Model,UserMixin):
     Linkdin = db.Column(db.String,default="NOT_SET")
     website = db.Column(db.String,default="NOT_SET")
     DOB = db.Column(db.Date,default='08-01-2003')
-
     def __repr__(self) -> str:
         return f"{self.id} - {self.username}"
+    def verify_password(self, pwd):
+        return check_password_hash(self.password, pwd)
 class Forum_Questions(db.Model):
     __tablename__ = "forum_questions"
     id = db.Column(db.Integer,primary_key=True)
@@ -92,13 +96,25 @@ def signin():
             usn = request.form['usn']
             psd = request.form['psd']
             em = request.form['em']
-            token = s.dumps({"Email":em,"Password":psd,"Username":usn},salt='email-confirm')
-            msg = Message('Hello',sender =os.environ['EMAIL125'],recipients = [em])
-            link = url_for('confirm_email',token=token,_external=True)
-            msg.body = 'Your Token Is {}'.format(link)
-            mail.send(msg)
-            flash('Check Mail For Authentication')
-            return render_template('index.html',flag=1)
+            check_if_exsisit_email = User_Basic_infos.query.filter_by(email=em).first()
+            check_if_exsisit_username = User_Basic_infos.query.filter_by(username=usn).first()
+            hashed_Value = generate_password_hash(psd)
+            check_if_exsisit_password = User_Basic_infos.query.filter_by(password=hashed_Value).first()
+            if not check_if_exsisit_email and not check_if_exsisit_username and not check_if_exsisit_password:
+                hashed_Value = generate_password_hash(psd)
+                print(hashed_Value)
+                print(check_password_hash(hashed_Value,psd))
+                token = s.dumps({"Email":em,"Password":hashed_Value,"Username":usn},salt='email-confirm')
+                print(token)
+                msg = Message('Hello',sender =os.environ['EMAIL125'],recipients = [em])
+                link = url_for('confirm_email',token=token,_external=True)
+                msg.body = 'Your Token Is {}'.format(link)
+                mail.send(msg)
+                flash('Check Mail For Authentication')
+                return render_template('index.html',flag=1)
+            else:
+                flash('User Already Exist')
+                return render_template('index.html',flag=1)
         except:
             flash('Use Diffrent Username and Password')
             return render_template('index.html',flag=1)
@@ -125,9 +141,11 @@ def login():
         usnl = request.form['usnl']
         psdl = request.form['psdl']
         eml = request.form['eml']
+        hashed_Value = generate_password_hash(psdl)
+        print(hashed_Value)
         try:
-            cheking = User_Basic_infos.query.filter_by(username=usnl, password=psdl, email=eml,flags =True).first()
-            if not cheking:
+            cheking = User_Basic_infos.query.filter_by(username=usnl,email=eml,flags =True).first()
+            if not cheking and cheking.verify_password(psdl):
                 flash('Username and Password Are Incorrect')
                 return render_template('index.html',flag=2)
             else:
