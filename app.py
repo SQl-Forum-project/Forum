@@ -92,13 +92,9 @@ def signin():
             usn = request.form['usn']
             psd = request.form['psd']
             em = request.form['em']
-            just1 = User_Basic_infos(username=usn, password=psd, email=em,flags=False)
-            db.session.add(just1)
-            db.session.commit()
-            coni = User_Basic_infos.query.filter_by(username=usn).first()
-            token = s.dumps(em,salt='email-confirm')
+            token = s.dumps({"Email":em,"Password":psd,"Username":usn},salt='email-confirm')
             msg = Message('Hello',sender =os.environ['EMAIL125'],recipients = [em])
-            link = url_for('confirm_email',token=token, id=coni.id,_external=True)
+            link = url_for('confirm_email',token=token,_external=True)
             msg.body = 'Your Token Is {}'.format(link)
             mail.send(msg)
             flash('Check Mail For Authentication')
@@ -109,12 +105,11 @@ def signin():
 
     return render_template('index.html')
 
-@app.route('/confirm_email/<token>/<int:id>')
-def confirm_email(token,id):
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
     try:
-        email = s.loads(token , salt='email-confirm',max_age=60)
-        conf = User_Basic_infos.query.filter_by(id=id).first()
-        conf.flags=True
+        data = s.loads(token , salt='email-confirm',max_age=60)
+        conf = User_Basic_infos(username=data["Username"],email=data["Email"],password=data["Password"],flags=True)
         db.session.add(conf)
         db.session.commit()
     except SignatureExpired:
