@@ -145,10 +145,11 @@ def login():
         print(hashed_Value)
         try:
             cheking = User_Basic_infos.query.filter_by(username=usnl,email=eml,flags =True).first()
-            if not cheking and cheking.verify_password(psdl):
-                flash('Username and Password Are Incorrect')
+            print(check_password_hash(cheking.password,psdl))
+            if not cheking:
+                flash('Username and Email Are Incorrect')
                 return render_template('index.html',flag=2)
-            else:
+            elif cheking and check_password_hash(cheking.password,psdl):
                 login_user(cheking)
                 session['visits']=cheking.id
                 print("LOl",cheking.id)
@@ -158,6 +159,9 @@ def login():
                 # flash('login In Succesfully')
                 user = User_Basic_infos.query.filter_by(id=session.get('visits')).first()
                 return render_template('forums.html',user=user)
+            else:
+                flash('Password Is Incorrect')
+                return render_template('index.html',flag=2)
         except Exception as e:
             print(e)
             flash('Username and Password Are Incorrect')
