@@ -293,7 +293,8 @@ def reset_password(token):
     try:
         data = s.loads(token , salt='email-reset',max_age=60)
         if request.method == 'GET':
-            return render_template('Search_bar.html',token=token)
+            user_profile = User_Basic_infos.query.filter_by(email=data["Email"]).first()
+            return render_template('Search_bar.html',token=token,user=user_profile)
         # conf = User_Basic_infos(username=data["Username"],email=data["Email"],password=data["Password"],flags=True)
         # db.session.add(conf)
         # db.session.commit()
