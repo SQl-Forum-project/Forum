@@ -1,189 +1,119 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-    ::selection {
-        background: #212129;
-    }
-    
-    .search-wrapper {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 20%;
-        left: 50%;
-    }
-    
-    .search-wrapper.active {}
-    
-    .search-wrapper .input-holder {
-        height: 70px;
-        width: 70px;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0);
-        border-radius: 6px;
-        position: relative;
-        transition: all 0.3s ease-in-out;
-    }
-    
-    .search-wrapper.active .input-holder {
-        width: 450px;
-        border-radius: 50px;
-        background: rgba(0, 0, 0, 0.5);
-        transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-    }
-    
-    .search-wrapper .input-holder .search-input {
-        width: 100%;
-        height: 50px;
-        padding: 0px 70px 0 20px;
-        opacity: 0;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        background: transparent;
-        box-sizing: border-box;
-        border: none;
-        outline: none;
-        font-family: "Open Sans", Arial, Verdana;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 20px;
-        color: #FFF;
-        transform: translate(0, 60px);
-        transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-        transition-delay: 0.3s;
-    }
-    
-    .search-wrapper.active .input-holder .search-input {
-        opacity: 1;
-        transform: translate(0, 10px);
-    }
+	<title>Login V6</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{{ url_for('static',filename='icons/favicon.ico')}}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='font-awesome-4.7.0/css/font-awesome.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='iconic/css/material-design-iconic-font.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='animate/animate.css')}}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css-hamburgers/hamburgers.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='animsition/css/animsition.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='select2/select2.min.css')}}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='daterangepicker/daterangepicker.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='util.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css')}}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-15 p-b-20">
+				<span id = "message1" style="color:red"> </span> <br><br>
+				<form class="login100-form validate-form" id="our_reset_pass_form" onsubmit ="return validateForm()" method="post">
+					<span class="login100-form-title p-b-70">
+						Welcome
+					</span>
+					<span class="login100-form-avatar">
+						<img src="{{ url_for('static',filename='avatar-01.jpg')}}" alt="AVATAR">
+					</span>
 
-    .search-wrapper .input-holder .search-icon {
-        width: 70px;
-        height: 70px;
-        border: none;
-        border-radius: 6px;
-        background: #FFF;
-        padding: 0px;
-        outline: none;
-        position: relative;
-        z-index: 2;
-        float: right;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-    
-    .search-wrapper.active .input-holder .search-icon {
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-        border-radius: 30px;
-    }
-    
-    .search-wrapper .input-holder .search-icon span {
-        width: 22px;
-        height: 22px;
-        display: inline-block;
-        vertical-align: middle;
-        position: relative;
-        transform: rotate(45deg);
-        transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
-    }
-    
-    .search-wrapper.active .input-holder .search-icon span {
-        transform: rotate(-45deg);
-    }
-    
-    .search-wrapper .input-holder .search-icon span::before,
-    .search-wrapper .input-holder .search-icon span::after {
-        position: absolute;
-        content: '';
-    }
-    
-    .search-wrapper .input-holder .search-icon span::before {
-        width: 4px;
-        height: 11px;
-        left: 9px;
-        top: 18px;
-        border-radius: 2px;
-        background: #FE5F55;
-    }
-    
-    .search-wrapper .input-holder .search-icon span::after {
-        width: 14px;
-        height: 14px;
-        left: 0px;
-        top: 0px;
-        border-radius: 16px;
-        border: 4px solid #FE5F55;
-    }
+					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
+						<input class="input100" name="reset_password" id="pswd1" type="password" name="pass">
+						<span class="focus-input100" data-placeholder="New Password"></span>
+                    
+					</div>
 
-    .search-wrapper .close {
-        position: absolute;
-        z-index: 1;
-        top: 24px;
-        right: 20px;
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-        transform: rotate(-180deg);
-        transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
-        transition-delay: 0.2s;
-    }
+					<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+						<input class="input100" id="pswd2" type="password" name="pass">
+						<span class="focus-input100" data-placeholder="Confirm Password"></span>
+					</div>
 
-    .search-wrapper.active .close {
-        right: -50px;
-        transform: rotate(45deg);
-        transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-        transition-delay: 0.5s;
-    }
-    
-    .search-wrapper .close::before,
-    .search-wrapper .close::after {
-        position: absolute;
-        content: '';
-        background: #FE5F55;
-        border-radius: 2px;
-    }
-
-    .search-wrapper .close::before {
-        width: 5px;
-        height: 25px;
-        left: 10px;
-        top: 0px;
-    }
-    
-    .search-wrapper .close::after {
-        width: 25px;
-        height: 5px;
-        left: 0px;
-        top: 10px;
-    }
-    </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    
-    <div class="search-wrapper">
-        <div class="input-holder">
-            <input type="text" class="search-input" placeholder="Type to search" />
-            <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
-        </div>
-        <span class="close" onclick="searchToggle(this, event);"></span>
-    </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+                    <br>
+                    <br><br>
+				</form>
+			</div>
+		</div>
+	</div>
+	
     <script>
-        function searchToggle(obj, evt) {
-            var container = $(obj).closest('.search-wrapper');
-            if (!container.hasClass('active')) {
-                container.addClass('active');
-                evt.preventDefault();
+        function validateForm() {
+            //collect form data in JavaScript variables
+            var pw1 = document.getElementById("pswd1").value;
+            var pw2 = document.getElementById("pswd2").value;
+            if(pw1 == "") {
+              document.getElementById("message1").innerHTML = "**Fill the password please!";
+              return false;
             }
-            else if (container.hasClass('active') && $(obj).closest('.input-holder').length == 0) {
-                container.removeClass('active');
-                // clear input
-                container.find('.search-input').val('');
+            if(pw2 == "") {
+              document.getElementById("message1").innerHTML = "**Enter the password please!";
+              return false;
+            } 
+            if(pw1.length < 8) {
+              document.getElementById("message1").innerHTML = "**Password length must be atleast 8 characters";
+              return false;
             }
-        }
-    </script>
-</body>
 
+            if(pw1.length > 15) {
+              document.getElementById("message1").innerHTML = "**Password length must not exceed 15 characters";
+              return false;
+            }
+          
+            if(pw1 != pw2) {
+              document.getElementById("message1").innerHTML = "**Passwords are not same";
+              return false;
+            } else {
+              document.getElementById("our_reset_pass_form").action = "/reset_password/{{token}}"
+			  document.getElementById("our_reset_pass_form").submit();
+            }
+         }
+        </script>
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='jquery/jquery-3.2.1.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='animsition/js/animsition.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='bootstrap/js/popper.js')}}"></script>
+	<script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='daterangepicker/moment.min.js')}}"></script>
+	<script src="{{ url_for('static',filename='daterangepicker/daterangepicker.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='countdowntime/countdowntime.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static',filename='main.js')}}"></script>
+
+</body>
 </html>
