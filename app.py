@@ -27,7 +27,6 @@ app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test123@localhost/flaskmovie'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -246,10 +245,9 @@ def forum_id(id):
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
                                 .join(Forum_Questions, User_Basic_infos.id == forum_gg.user_id)
                                 .first())
-    replay = Forum_Questions_Reply.query.filter_by(flag=id).all()
-    users =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username).join(Forum_Questions_Reply,and_(Forum_Questions_Reply.flag==id , User_Basic_infos.id == Forum_Questions_Reply.user_id)).all())
-    print(user)
-    return render_template('bbg.html',ques=forum_gg,user=user,replay=replay,users=users,lenghtsq=len(replay))
+    users =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username,Forum_Questions_Reply.discription).join(Forum_Questions_Reply,and_(Forum_Questions_Reply.flag==id , User_Basic_infos.id == Forum_Questions_Reply.user_id)).all())
+    print(users)
+    return render_template('bbg.html',ques=forum_gg,user=user,users=users,lenghtsq=len(users))
 
 @app.route('/userprofile/<string:username>',methods=['GET','POST'])
 def userprofile(username):
