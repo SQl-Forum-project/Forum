@@ -73,7 +73,7 @@ class Forum_Questions_Reply(db.Model):
     __tablename__ = "forum_questions_replays"
     id = db.Column(db.Integer,primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey("userbasicinfos.id"))
-    flag = db.Column(db.Integer)
+    flag = db.Column(db.Integer,db.ForeignKey("forum_questions.id"))
     discription = db.Column(db.String)
     time = db.Column(db.Date,default=datetime.now)
     def __repr__(self) -> str:
