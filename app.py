@@ -239,14 +239,14 @@ def logout():
 @app.route('/forum')
 @login_required
 def forum():
-    user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
+    user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username,User_Basic_infos.id)
                                 .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
                                 .all())
     temp_like = db.session.execute('SELECT COUNT (likeDetailss.forumid),forum_questions.id , forum_questions.title,forum_questions.discription FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.forumid = forum_questions.id GROUP BY forum_questions.id ORDER BY forum_questions.id').fetchall()
     lenghts=len(temp_like)
     te = session.get('visits')
     flgs_db = db.session.execute(f'SELECT likeDetailss.forumid FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.userid = {te} AND forum_questions.id = likeDetailss.forumid').fetchall()
-    return render_template('test.html',ques=temp_like,user=user,total_len=lenghts,like=flgs_db)
+    return render_template('test.html',ques=temp_like,user=user,total_len=lenghts,like=flgs_db,curruser=session.get('visits'))
 @app.route('/forum/<int:id>',methods=['GET','POST'])
 @login_required
 def forum_id(id):
@@ -324,7 +324,7 @@ def reset_password(token):
 @app.route('/like', methods=['GET','POST'])
 def like():
     if request.method == 'POST':
-        res=request.form.get('data')
+        res=int(request.form.get('data'))
         lk = likeDetailss(userid=session.get('visits'),forumid=res)
         db.session.add(lk)
         db.session.commit()
@@ -332,9 +332,24 @@ def like():
 @app.route('/dislike', methods=['GET','POST'])
 def dislike():
     if request.method == 'POST':
-        res=request.form.get('data')
+        res=int(request.form.get('data'))
         db.session.query(likeDetailss).filter(and_(likeDetailss.forumid==int(res),likeDetailss.userid== session.get('visits'))).delete()
         db.session.commit()
+    return "render"
+@app.route('/deletepost',methods=['GET','POST'])
+def deletepost():
+    if request.method == 'POST':
+        re = request.form.get('data')
+        res = int(re)
+        print(res)
+        db.session.execute(f'DELETE FROM likeDetailss WHERE forumid={res}')
+        db.session.commit()
+        db.session.execute(f'DELETE FROM forum_questions_replays WHERE flag={res}')
+        db.session.commit()
+        db.session.execute(f'DELETE FROM Forum_Questions WHERE id={res}')
+        db.session.commit()
+        
+        print(res)
     return "render"
 if(__name__)=='__main__':
     app.run(debug=True)

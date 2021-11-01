@@ -114,18 +114,21 @@
                                     </p>
                                     <p class="text-muted">
                                     <form action="/forum/{{ ques[i].id }}" method="post"> <button type="submit"
-                                            class="btn btn-outline-primary">Join The Party</button> <span
-                                            class="text-secondary font-weight-bold">13 minutes ago
+                                            class="btn btn-outline-primary btn-sm">Join The Party</button> <span
+                                            class="text-secondary font-weight-bold">13m
                                         </span>
                                         {% if like[i].forumid != None %}
                                         <i id="heart" class="fas fa-heart" style="color: rgb(52, 109, 214)"
-                                        onclick="func({{i}});">{{ques[i].count}}</i>
+                                        onclick="func({{i}},{{ques[i].id}});">{{ques[i].count}}</i>
                                                 
                                             {% else %}
                                                 
                                            
                                         <i id="heart" class="far fa-heart" style="color: rgb(52, 109, 214)"
-                                        onclick="func({{i}});">{{ques[i].count}}</i>
+                                        onclick="func({{i}},{{ques[i].id}});">{{ques[i].count}}</i>
+                                        {% endif %}
+                                        {% if user[i].id == curruser %}
+                                        <button type="button" class="btn btn-outline-primary" onclick="del_act_post({{ques[i].id}});"><i class="fa fa-trash"></i></button>
                                         {% endif %}
                                         </p>
                                         <script>
@@ -156,10 +159,11 @@
             $.ajax({
                 type: 'POST',
                 url: "{{url_for('like')}}",
-                data: { 'data': i + 1 },
+                data: { 'data': i },
                 success: function (response) {
                     console.log(response);
                     console.log("YAY");
+                    window.location.reload();
                 },
                 error: function (error) {
                     console.log(error);
@@ -170,24 +174,40 @@
             $.ajax({
                 type: 'POST',
                 url: "{{url_for('dislike')}}",
-                data: { 'data': i + 1 },
+                data: { 'data': i },
                 success: function (response) {
                     console.log(response);
                     console.log("YAY");
+                    window.location.reload();
                 },
                 error: function (error) {
                     console.log(error);
                 }
             });
         }
-        function func(i) {
+        function del_act_post(i) {
+            $.ajax({
+                type: 'POST',
+                url: "{{url_for('deletepost')}}",
+                data: { 'data': i },
+                success: function (response) {
+                    console.log(response);
+                    console.log("YAY");
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function func(i,j) {
             temp = document.getElementById("heart" + i).className
             if (temp == "far fa-heart") {
                 document.getElementById("heart" + i).className = "fas fa-heart"
                 let val = document.getElementById("heart" + i).textContent;
                 let act = parseInt(val);
                 act += 1
-                call_post(i);
+                call_post(j);
                 document.getElementById("heart" + i).textContent = act;
             }
             else if (temp == "fas fa-heart") {
@@ -195,7 +215,7 @@
                 let val = document.getElementById("heart" + i).textContent;
                 let act = parseInt(val);
                 act -= 1
-                del_post(i);
+                del_post(j);
                 document.getElementById("heart" + i).textContent = act;
             }
         }
