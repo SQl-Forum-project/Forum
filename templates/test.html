@@ -24,90 +24,120 @@
         href="{{ url_for('static',filename='images/ico/apple-touch-icon-72.png')}}">
     <link rel="apple-touch-icon-precomposed"
         href=" {{ url_for('static',filename='images/ico/apple-touch-icon-57.png')}}">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <style>
+        .fa-heart-o {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .fa-heart {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Navbar Menu  ---->
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static',filename='lojo.png')}}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
 
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('editprofile') }}">Back</a>
-                    </li>
-                   
-                    <!--                     <li class="nav-item">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('editprofile') }}">Back</a>
+                </li>
+
+                <!--                     <li class="nav-item">
                         <a class="nav-link" href="#testimonials">Testimonials</a>
                     </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
-                    </li>
-                </ul>
-                <form class="d-flex" id="another_temp_search" method="POST" target="_blank">
-                    <input class="form-control me-2" id="temp_search_another" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit" onclick="temp1();">&#128269;</button>
-                </form>
-            </div>
-        </nav>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                </li>
+            </ul>
+            <form class="d-flex" id="another_temp_search" method="POST" target="_blank">
+                <input class="form-control me-2" id="temp_search_another" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit" onclick="temp1();">&#128269;</button>
+            </form>
+        </div>
+    </nav>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
         integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
     <div class="container">
         <div class="main-body p-0">
             <div class="inner-wrapper">
                 <!-- Inner sidebar -->
-                
-                    <!-- Inner sidebar header -->
-                    
-                    <!-- /Inner sidebar header -->
 
-                    <!-- Inner sidebar body -->
-                   
-                    <!-- /Inner sidebar body -->
-                
+                <!-- Inner sidebar header -->
+
+                <!-- /Inner sidebar header -->
+
+                <!-- Inner sidebar body -->
+
+                <!-- /Inner sidebar body -->
+
                 <!-- /Inner sidebar -->
 
                 <!-- Inner main -->
-                
-                    <!-- /Inner main header -->
 
-                    <!-- Inner main body -->
+                <!-- /Inner main header -->
 
-                    <!-- Forum List -->
-                    {% for i in range(total_len)  %}
-                        
-                    
-                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <div class="card mb-2">
-                            <div class="card-body p-2 p-sm-3">
-                                <div class="media forum-item">
-                                    <a href="/userprofile/{{user[i].username}}" class="card-link">
-                                        <img src="	https://avatars.dicebear.com/api/avataaars/{{ user[i].Image_Str}}.svg" class="rounded-circle"
-                                            width="50" alt="User" />
-                                        <small class="d-block text-center text-muted">{{ user[i].username }}</small>
-                                    </a>
-                                        
-                                    <div class="media-body ml-3">
-                                        <h6>{{ques[i].title}}</h6>
-                                        <p class="text-secondary">
-                                            {{ ques[i].discription}}
+                <!-- Inner main body -->
+
+                <!-- Forum List -->
+                {% for i in range(total_len) %}
+
+
+                <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                    <div class="card mb-2">
+                        <div class="card-body p-2 p-sm-3">
+                            <div class="media forum-item">
+                                <a href="/userprofile/{{user[i].username}}" class="card-link">
+                                    <img src="	https://avatars.dicebear.com/api/avataaars/{{ user[i].Image_Str}}.svg"
+                                        class="rounded-circle" width="50" alt="User" />
+                                    <small class="d-block text-center text-muted">{{ user[i].username }}</small>
+                                </a>
+
+                                <div class="media-body ml-3">
+                                    <h6>{{ques[i].title}}</h6>
+                                    <p class="text-secondary">
+                                        {{ ques[i].discription}}
+                                    </p>
+                                    <p class="text-muted">
+                                    <form action="/forum/{{ ques[i].id }}" method="post"> <button type="submit"
+                                            class="btn btn-outline-primary">Join The Party</button> <span
+                                            class="text-secondary font-weight-bold">13 minutes ago
+                                        </span>
+                                        {% if like[i+1] !=0 %}
+                                        <i id="heart" class="fas fa-heart" style="color: rgb(52, 109, 214)"
+                                        onclick="func({{i}});">{{ques[i].count}}</i>
+                                                
+                                            {% else %}
+                                                
+                                           
+                                        <i id="heart" class="far fa-heart" style="color: rgb(52, 109, 214)"
+                                        onclick="func({{i}});">{{ques[i].count}}</i>
+                                        {% endif %}
                                         </p>
-                                        <p class="text-muted"> <form action="/forum/{{ ques[i].id }}" method="post"> <button type="submit" class="btn btn-outline-primary">Join The Party</button> <span
-                                                class="text-secondary font-weight-bold">13 minutes ago</span></p></form>
-                                    </div>
+                                        <script>
+                                            document.getElementById("heart").id = "heart" + {{ i }};
+                                        </script>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
+                </div>
+                {% endfor %}
                 <!-- /Forum List -->
 
                 <!-- Forum Detail -->
@@ -119,10 +149,57 @@
         </div>
 
         <!-- New Thread Modal -->
-        
+
     </div>
-
-
+    <script>
+        function call_post(i) {
+            $.ajax({
+                type: 'POST',
+                url: "{{url_for('like')}}",
+                data: { 'data': i + 1 },
+                success: function (response) {
+                    console.log(response);
+                    console.log("YAY");
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function del_post(i) {
+            $.ajax({
+                type: 'POST',
+                url: "{{url_for('dislike')}}",
+                data: { 'data': i + 1 },
+                success: function (response) {
+                    console.log(response);
+                    console.log("YAY");
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function func(i) {
+            temp = document.getElementById("heart" + i).className
+            if (temp == "far fa-heart") {
+                document.getElementById("heart" + i).className = "fas fa-heart"
+                let val = document.getElementById("heart" + i).textContent;
+                let act = parseInt(val);
+                act += 1
+                call_post(i);
+                document.getElementById("heart" + i).textContent = act;
+            }
+            else if (temp == "fas fa-heart") {
+                document.getElementById("heart" + i).className = "far fa-heart"
+                let val = document.getElementById("heart" + i).textContent;
+                let act = parseInt(val);
+                act -= 1
+                del_post(i);
+                document.getElementById("heart" + i).textContent = act;
+            }
+        }
+    </script>
     <style type="text/css">
         body {
             color: #1a202c;
@@ -278,10 +355,10 @@
     <script type="text/javascript">
 
     </script>
-        <script type="text/javascript" src="{{ url_for('static',filename='smooth-scroll.js')}}"></script>
-        <script>
-            var scroll = new SmoothScroll('a[href*="#"]');
-        </script>
+    <script type="text/javascript" src="{{ url_for('static',filename='smooth-scroll.js')}}"></script>
+    <script>
+        var scroll = new SmoothScroll('a[href*="#"]');
+    </script>
 </body>
 
 </html>

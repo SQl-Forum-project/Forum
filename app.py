@@ -78,6 +78,13 @@ class Forum_Questions_Reply(db.Model):
     time = db.Column(db.Date,default=datetime.now)
     def __repr__(self) -> str:
         return f"{self.id} - {self.user_id}"
+class likeDetailss(db.Model):
+    __tablename__ = 'likedetailss'
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, db.ForeignKey('userbasicinfos.id'))
+    forumid = db.Column(db.Integer, db.ForeignKey('forum_questions.id'))
+    def __repr__(self) -> str:
+        return f"{self.forumid} - {self.userid}"
 @login_manager.user_loader
 def load_user(user_id):
     return User_Basic_infos.query.get(int(user_id))
@@ -235,9 +242,20 @@ def forum():
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
                                 .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
                                 .all())
-    forum_gg=Forum_Questions.query.all()
-    lenghts=len(forum_gg)
-    return render_template('test.html',ques=forum_gg,user=user,total_len=lenghts)
+    temp_like = db.session.execute('SELECT COUNT (likeDetailss.forumid),forum_questions.id , forum_questions.title,forum_questions.discription FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.forumid = forum_questions.id GROUP BY forum_questions.id ORDER BY forum_questions.id').all()
+    lenghts=len(temp_like)
+    te = session.get('visits')
+    temp_user_like = db.session.execute(f'SELECT forumid FROM likeDetailss WHERE userid ={te}').all()
+    l = [0] * (len(temp_like)+1)
+    flag = 0
+    temp_user_like.sort()
+    for j in range(len(temp_like)+1):
+        if flag < len(temp_user_like):
+            if j == temp_user_like[flag].forumid:
+                l[j]=j
+                print(l[j],temp_user_like[flag].forumid)
+                flag += 1
+    return render_template('test.html',ques=temp_like,user=user,total_len=lenghts,like=l)
 @app.route('/forum/<int:id>',methods=['GET','POST'])
 @login_required
 def forum_id(id):
@@ -312,5 +330,20 @@ def reset_password(token):
     except BadSignature:
         return "The token is invalid"
     return "This email worked"
+@app.route('/like', methods=['GET','POST'])
+def like():
+    if request.method == 'POST':
+        res=request.form.get('data')
+        lk = likeDetailss(userid=session.get('visits'),forumid=res)
+        db.session.add(lk)
+        db.session.commit()
+    return "render"
+@app.route('/dislike', methods=['GET','POST'])
+def dislike():
+    if request.method == 'POST':
+        res=request.form.get('data')
+        db.session.query(likeDetailss).filter(and_(likeDetailss.forumid==int(res),likeDetailss.userid== session.get('visits'))).delete()
+        db.session.commit()
+    return "render"
 if(__name__)=='__main__':
     app.run(debug=True)
