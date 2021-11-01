@@ -242,11 +242,10 @@ def forum():
     user =list(db.session.query(User_Basic_infos.Image_Str,User_Basic_infos.username)
                                 .join(Forum_Questions, User_Basic_infos.id == Forum_Questions.user_id)
                                 .all())
-    temp_like1 = db.engine.execute('SELECT COUNT (likeDetailss.forumid),forum_questions.id , forum_questions.title,forum_questions.discription FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.forumid = forum_questions.id GROUP BY forum_questions.id ORDER BY forum_questions.id')
-    temp_like = temp_like1.all()
+    temp_like = db.session.execute('SELECT COUNT (likeDetailss.forumid),forum_questions.id , forum_questions.title,forum_questions.discription FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.forumid = forum_questions.id GROUP BY forum_questions.id ORDER BY forum_questions.id').fetchall()
     lenghts=len(temp_like)
     te = session.get('visits')
-    temp_user_like = db.session.execute(f'SELECT forumid FROM likeDetailss WHERE userid ={te}').all()
+    temp_user_like = db.session.execute(f'SELECT forumid FROM likeDetailss WHERE userid ={te}').fetchall()
     l = [0] * (len(temp_like)+1)
     flag = 0
     temp_user_like.sort()
