@@ -117,7 +117,7 @@
                                             class="btn btn-outline-primary">Join The Party</button> <span
                                             class="text-secondary font-weight-bold">13 minutes ago
                                         </span>
-                                        {% if like[i+1] !=0 %}
+                                        {% if like[i].forumid != None %}
                                         <i id="heart" class="fas fa-heart" style="color: rgb(52, 109, 214)"
                                         onclick="func({{i}});">{{ques[i].count}}</i>
                                                 

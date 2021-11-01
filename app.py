@@ -245,17 +245,8 @@ def forum():
     temp_like = db.session.execute('SELECT COUNT (likeDetailss.forumid),forum_questions.id , forum_questions.title,forum_questions.discription FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.forumid = forum_questions.id GROUP BY forum_questions.id ORDER BY forum_questions.id').fetchall()
     lenghts=len(temp_like)
     te = session.get('visits')
-    temp_user_like = db.session.execute(f'SELECT forumid FROM likeDetailss WHERE userid ={te}').fetchall()
-    l = [0] * (len(temp_like)+1)
-    flag = 0
-    temp_user_like.sort()
-    for j in range(len(temp_like)+1):
-        if flag < len(temp_user_like):
-            if j == temp_user_like[flag].forumid:
-                l[j]=j
-                print(l[j],temp_user_like[flag].forumid)
-                flag += 1
-    return render_template('test.html',ques=temp_like,user=user,total_len=lenghts,like=l)
+    flgs_db = db.session.execute(f'SELECT likeDetailss.forumid FROM likeDetailss RIGHT JOIN forum_questions ON likeDetailss.userid = {te} AND forum_questions.id = likeDetailss.forumid').fetchall()
+    return render_template('test.html',ques=temp_like,user=user,total_len=lenghts,like=flgs_db)
 @app.route('/forum/<int:id>',methods=['GET','POST'])
 @login_required
 def forum_id(id):
