@@ -121,7 +121,8 @@ def signin():
             else:
                 flash('User Already Exist')
                 return render_template('index.html',flag=1)
-        except:
+        except Exception as e:
+            print(e)
             flash('Use Diffrent Username and Password')
             return render_template('index.html',flag=1)
 
