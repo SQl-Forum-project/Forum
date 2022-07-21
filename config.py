@@ -6,7 +6,10 @@ from routers import index,signin,login,like,reset_password,userprofile,askque,lo
 def create_app(app):
     load_dotenv('.env')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
+    uri =  os.environ.get('DATABASE_URL')
+    if uri and uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = 'ye ye'
     app.config['JSON_AS_ASCII'] = False
