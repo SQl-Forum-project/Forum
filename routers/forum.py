@@ -11,7 +11,7 @@ forum = Blueprint(name="forum", import_name=__name__)
 
 @forum.route('/')
 @login_required
-def forum():
+def forums():
     user = list(db.session.query(User.Image_Str, User.username, User.id)
                 .join(Forum, User.id == Forum.user_id)
                 .all())
