@@ -6,7 +6,7 @@ dislike = Blueprint(name="dislike", import_name=__name__)
 
 
 @dislike.route('/', methods=['GET', 'POST'])
-def dislike():
+def dislikes():
     if request.method == 'POST':
         res = int(request.form.get('data'))
         db.session.query(Like).filter(and_(Like.forumid == int(

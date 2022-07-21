@@ -5,7 +5,7 @@ logout = Blueprint(name="logout", import_name=__name__)
 
 @logout.route('/')
 @login_required
-def logout():
+def logouts():
     logout_user()
     flash('Logout Succesfully')
     return render_template('index.html', flag=1)

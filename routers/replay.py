@@ -8,7 +8,7 @@ replay = Blueprint(name="replay", import_name=__name__)
 
 @replay.route('/<int:id>', methods=['GET', 'POST'])
 @login_required
-def replay(id):
+def replays(id):
     if request.method == 'POST':
         comment = request.form["ncom"]
         replay_msg = Forum(user_id=session.get('visits'),

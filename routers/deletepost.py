@@ -4,7 +4,7 @@ deletepost = Blueprint(name="deletepost", import_name=__name__)
 
 
 @deletepost.route('/', methods=['GET', 'POST'])
-def deletepost():
+def deleteposts():
     if request.method == 'POST':
         re = request.form.get('data')
         res = int(re)

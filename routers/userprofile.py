@@ -4,7 +4,7 @@ userprofile = Blueprint(name="userprofile", import_name=__name__)
 
 
 @userprofile.route('/<string:username>', methods=['GET', 'POST'])
-def userprofile(username):
+def userprofiles(username):
     if request.method == 'POST':
         user = User.query.filter_by(username=username).first()
         if not user:

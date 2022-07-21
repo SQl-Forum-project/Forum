@@ -7,7 +7,7 @@ editprofile = Blueprint(name="editprofile", import_name=__name__)
 
 @editprofile.route('/', methods=['GET', 'POST'])
 @login_required
-def editprofile():
+def editprofiles():
     if request.method == 'POST':
         user_profile = User.query.filter_by(id=session.get('visits')).first()
         image_data = request.form["imgsrc"]

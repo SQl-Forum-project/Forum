@@ -8,7 +8,7 @@ reset_password = Blueprint(name="reset_password", import_name=__name__)
 
 
 @reset_password.route('/<token>', methods=['GET', 'POST'])
-def reset_password(token):
+def reset_passwords(token):
     try:
         data = s.loads(token, salt='email-reset', max_age=60)
         if request.method == 'GET':

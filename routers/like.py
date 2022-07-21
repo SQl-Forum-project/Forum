@@ -5,7 +5,7 @@ like = Blueprint(name="like", import_name=__name__)
 
 
 @like.route('/like', methods=['GET', 'POST'])
-def like():
+def likes():
     if request.method == 'POST':
         res = int(request.form.get('data'))
         lk = Like(userid=session.get('visits'), forumid=res)

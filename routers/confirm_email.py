@@ -7,7 +7,7 @@ confirm_email = Blueprint(name="confirm_email", import_name=__name__)
 
 
 @confirm_email.route('/<token>')
-def confirm_email(token):
+def confirm_emails(token):
     try:
         data = s.loads(token, salt='email-confirm', max_age=60)
         conf = User(username=data["Username"], email=data["Email"],

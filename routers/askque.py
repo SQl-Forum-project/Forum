@@ -8,7 +8,7 @@ askque = Blueprint(name="askque", import_name=__name__)
 
 @askque.route('/askque', methods=['GET', 'POST'])
 @login_required
-def askque():
+def askques():
     if request.method == 'POST':
         topic = request.form['tpc']
         Discription = request.form['tpcdisc']

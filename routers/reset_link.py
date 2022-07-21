@@ -6,7 +6,7 @@ reset_link = Blueprint(name="reset_link", import_name=__name__)
 
 
 @reset_link.route('/', methods=['GET', 'POST'])
-def reset_link():
+def reset_links():
     if request.method == 'POST':
         reset_email = request.form['emailforget']
         cheking = User.query.filter_by(email=reset_email, flags=True).first()
